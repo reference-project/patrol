@@ -1,0 +1,147 @@
+
+/*主体容器*/
+.container {
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	background-color: #ffffff;
+}
+/*数据列表*/
+.container-ul {
+	padding: 50px 8.3%;
+}
+.container-li {
+	width: 100%;
+	list-style: none;
+	margin-bottom: 30px;
+}
+.taskList-group {
+	position: relative;
+	width: 100%;
+	height: 35px;
+	line-height: 35px;
+	margin-bottom: 5px;
+}
+.taskList-groups {
+	line-height: 35px;
+	position: relative;
+}
+.taskList-i-1 {
+	position: absolute;
+	top: 4px;
+	left: 0%;
+	background: url("./../../statics/img/task-name.png") no-repeat;
+	width: 30px;
+	height: 30px;
+	background-size: 100% 100%;
+}
+.taskList-label-1 {
+	position: absolute;
+	top: 0px;
+	left: 4%;
+	font-size: 20px;
+	color: #333333;
+}
+.taskList-span-1 {
+	position: absolute;
+	top: 0px;
+	left: 12.5%;
+	font-size: 20px;
+	color: #333333;
+}
+.taskList-i-2 {
+	position: absolute;
+	top: 4px;
+	left: 36%;
+	background: url("./../../statics/img/task-sex.png") no-repeat;
+	width: 30px;
+	height: 30px;
+	background-size: 100% 100%;
+}
+.taskList-label-2 {
+	position: absolute;
+	top: 0px;
+	left: 40%;
+	font-size: 20px;
+	color: #333333;
+}
+.taskList-span-2 {
+	position: absolute;
+	top: 0px;
+	left: 48.5%;
+	font-size: 20px;
+	color: #333333;
+}
+.taskList-i-3 {
+	position: absolute;
+	top: 4px;
+	left: 65%;
+	background: url("./../../statics/img/login/icon-calendar.png") no-repeat;
+	width: 30px;
+	height: 30px;
+	background-size: 100% 100%;
+}
+.taskList-label-3 {
+	position: absolute;
+	top: 0px;
+	left: 69%;
+	font-size: 20px;
+	color: #333333;
+}
+.taskList-span-3 {
+	position: absolute;
+	top: 0px;
+	left: 80%;
+	font-size: 20px;
+	color: #333333;
+}
+.taskList-i-4 {
+	background: url("./../../statics/img/task-phone.png") no-repeat;
+	background-size: 100% 100%;
+}
+.taskList-i-5 {
+	background: url("./../../statics/img/task-age.png") no-repeat;
+	width: 30px;
+	height: 30px;
+	background-size: 100% 100%;
+}
+.taskList-i-6 {
+	background: url("./../../statics/img/task-time.png") no-repeat;
+	width: 30px;
+	height: 30px;
+	background-size: 100% 100%;
+}
+.taskList-i-7 {
+	background: url("./../../statics/img/task-level.png") no-repeat;
+	width: 30px;
+	height: 35px;
+	background-size: 100% 100%;
+}
+.taskList-i-8 {
+	background: url("./../../statics/img/task-position.png") no-repeat;
+	width: 30px;
+	height: 35px;
+	background-size: 100% 100%;
+}
+.taskList-i-9 {
+	background: url("./../../statics/img/task-describled.png") no-repeat;
+	width: 30px;
+	height: 35px;
+	background-size: 100% 100%;
+}
+.left-4 {
+	left: 15%;
+}
+/*描述部分*/
+.taskList-span {
+	display:inline-block;
+	text-indent: 12.5%;
+	font-size: 20px;
+	color: #333333;
+	width: 100%;
+	line-height: 35px;
+	text-align: justify;
+}
+
+/*解决移动端滑动卡顿问题*/
+html,body{-webkit-overflow-scrolling: touch;}

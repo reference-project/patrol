@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>护理等级说明</title>
+
+	<!--<link rel="import" href="./../statics/include_css.html">-->
+	<!--<link rel="import" href="./../statics/include_js.html">-->
+
+	<link href="./../statics/css/mui.min.css" rel="stylesheet"/>
+	<link href="./../statics/css/base.css" rel="stylesheet"/>
+	<link href="./../statics/css/public.css" rel="stylesheet"/>
+	<link href="./../statics/css/nursingGrade.css" rel="stylesheet"/>
+	<script src="./../statics/js/jquery-3.2.1.js"></script>
+	<script src="./../statics/js/mui.min.js"></script>
+	<script src="./../statics/js/H5Common.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+</head>
+<body>
+	
+	<div class="container">
+		<div class="top-bar"></div>
+		<header class="container-top">
+			<div class="mui-pull-left">
+				<span class="mui-icon icon-back" onclick="javascript :history.back(-1);"></span>
+			</div>
+			护理等级说明
+		</header>
+		<div class="container-body">
+			<div class="nursing-top"></div>
+			<ul class="Grade-group-ul">
+				<li class="Grade-group-li">
+					<div class="Grade-group">
+						<label class="Grade-title">等级：</label>
+						<div class="Grade-name Grade-name-0">特级</div>
+					</div>
+					<div class="Grade-group-Basis">
+						<label class="Grade-title">依据：</label>
+					</div>
+					<div class="Grade-group-detalis">
+						<p class="Grade-group-p Grade-p-1">维持生命，实施抢救性治疗的重症监护患者；</p>
+						<p class="Grade-group-p Grade-p-2">病情危重，随时可能发生病情变化需要进行监护、抢救的患者；</p>
+						<p class="Grade-group-p Grade-p-3">各种复杂或大手术后、严重创伤或大面积烧伤的患者。</p>
+					</div>
+				</li>
+				<li class="Grade-group-li">
+					<div class="Grade-group">
+						<label class="Grade-title">等级：</label>
+						<div class="Grade-name Grade-name-1">一级</div>
+					</div>
+					<div class="Grade-group-Basis">
+						<label class="Grade-title">依据：</label>
+					</div>
+					<div class="Grade-group-detalis">
+						<p class="Grade-group-p Grade-p-1">病情危重，随时可能发生变化需进行抢救的患者；</p>
+						<p class="Grade-group-p Grade-p-2">严重创伤，使用呼吸机辅助呼吸，并需严密监护生命体征的患者；</p>
+						<p class="Grade-group-p Grade-p-3">各种复杂或大手术后的患者；</p>
+						<p class="Grade-group-p Grade-p-4">其他有生命危险需严密监护生命体征的患者等（气切、胃管、尿管、呼吸机、透析、营养泵、伤口引流）。</p>
+					</div>
+				</li>
+				<li class="Grade-group-li">
+					<div class="Grade-group">
+						<label class="Grade-title">等级：</label>
+						<div class="Grade-name Grade-name-2">二级</div>
+					</div>
+					<div class="Grade-group-Basis">
+						<label class="Grade-title">依据：</label>
+					</div>
+					<div class="Grade-group-detalis">
+						<p class="Grade-group-p Grade-p-1">病情趋向稳定的重症患者：手术后或治疗期间需要严格卧床的患者；</p>
+						<p class="Grade-group-p Grade-p-2">生活完全不能自理且病情不稳定的患者；</p>
+						<p class="Grade-group-p Grade-p-3">生活部分自理，病情随时发生变化的患者等（气切、胃管、尿管）。</p>
+					</div>
+				</li>
+				<li class="Grade-group-li">
+					<div class="Grade-group">
+						<label class="Grade-title">等级：</label>
+						<div class="Grade-name Grade-name-3">三级</div>
+					</div>
+					<div class="Grade-group-Basis">
+						<label class="Grade-title">依据：</label>
+					</div>
+					<div class="Grade-group-detalis">
+						<p class="Grade-group-p Grade-p-1">生活基本自理且病情稳定的患者；</p>
+						<p class="Grade-group-p Grade-p-2">生活基本自理且处于康复期的患者等。</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>
+
+<script type="text/javascript">
+
+    $(function () {
+        //判断是否为微信浏览器
+        var ua = window.navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+            wxTrue=true;
+            $("header").remove();
+            $(".container-body").css("top","0rem");
+        }else{
+            wxTrue=false;
+            $(".container-top").show();
+        }
+    })
+</script>
+
+</html>

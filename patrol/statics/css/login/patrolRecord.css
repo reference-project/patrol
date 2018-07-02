@@ -1,0 +1,174 @@
+/*巡检记录*/
+html,body{-webkit-overflow-scrolling: touch;}
+.patrol {
+	width: 15rem;
+}
+/*导航条*/
+.patrol-top {
+	position: fixed;
+	top: 0rem;
+	left: 0rem;
+	z-index: 10;
+	width: 100%;
+	height: 1.6rem;
+	line-height: 1.6rem;
+	text-align: left;
+	background-color: #0bab95;
+}
+.top-back-icon {
+	position: absolute;
+	top: 0.5rem;
+	left: 0.66rem;
+	background: url("../../../statics/img/login/icon-back.png") no-repeat;
+	width: 0.38rem;
+	height: 0.7rem;
+	background-size: 100% 100%;
+}
+.top-back {
+	font-size: 0.6rem;
+	color: #ffffff;
+	margin-left: 1.45rem;
+}
+.record-title {
+	position: fixed;
+	top: 1.6rem;
+	left: 0rem;
+	z-index: 10;
+	width: 13.7rem;
+	height: 1rem;
+	line-height: 1rem;
+	text-align: left;
+	padding-left: 1.3rem;
+	font-size: 0.5rem;
+	color: #808080;
+	background-color: #f8f8f8;
+	border-bottom: 0.02rem solid #dedede;
+}
+/*身体*/
+.patrol-body {
+	width: 100%;
+	overflow-y: auto;
+	margin-top: 2.6rem;
+	margin-bottom: 2.46rem;
+}
+/*记录列表*/
+.record-list {
+	position: relative;
+	width: 100%;
+}
+.record-list-group {
+	position: relative;
+	width: 12.9rem;
+	padding-left: 2.1rem;
+	padding-bottom: 1.2rem;
+}
+.icon-Downline {
+	position: absolute;
+	top: 0rem;
+	left: 1.28rem;
+	content: "";
+	width: 0.04rem;
+	background-color: #808080;
+}
+.record-list li:first-child {
+	margin-top: 0.8rem;
+}
+.icon-record {
+	position: absolute;
+	top: 0.14rem;
+	left: 1.12rem;
+	z-index: 5;
+	background: url("../../../statics/img/login/icon-record.png") no-repeat;
+	width: 0.36rem;
+	height: 0.36rem;
+	background-size: 100% 100%;
+}
+.icon-record-active {
+	position: absolute;
+	top: 0rem;
+	left: 1rem;
+	z-index: 5;
+	background: url("../../../statics/img/login/icon-record-active.png") no-repeat;
+	width: 0.56rem;
+	height: 0.56rem;
+	background-size: 100% 100%;
+}
+.icon-Downline {
+	position: absolute;
+	top: 0rem;
+	left: 1.28rem;
+	background-color: #808080;
+	width: 0.04rem;
+}
+.record-list-title {
+	font-size: 0.6rem;
+	line-height: 0.6rem;
+	color: #808080;
+	letter-spacing: 0.06rem;
+}
+.record-span {
+	font-size: 0.44rem;
+	color: #808080;
+}
+.mar-left {
+	margin-left: 1rem;
+}
+.mar-right {
+	margin-right: 0.2rem;
+}
+.title-active {
+	color: #0bab95;
+}
+.record-list-time {
+	font-size: 0.44rem;
+	line-height: 0.44rem;
+	color: #808080;
+	margin: 0.4rem 0rem;
+}
+.record-list-img {
+	width: 3rem;
+	height: 3rem;
+}
+.record-list-details {
+	line-height: 0.5rem;
+	margin-top: 0.4rem;
+	padding-right: 0.6rem;
+}
+.record-list-details:after {
+	position: absolute;
+	bottom: 0.8rem;
+	left: 2.06rem;
+	content: "";
+	width: 12.94rem;
+	height: 0.04rem;
+	background-color: #808080;
+}
+.bottom-addRecord {
+	position: fixed;
+	bottom: 0rem;
+	left: 0rem;
+	z-index: 10;
+	width: 100%;
+	padding-top: 0.3rem;
+	padding-bottom: 0.76rem;
+	background-color: #ffffff;
+}
+.addRecord {
+	width: 12.5rem;
+	height: 1.4rem;
+	line-height: 1rem;
+	text-align: center;
+	color: #ffffff;
+	font-size: 0.72rem;
+	letter-spacing: 0.3rem;
+	margin-left: 1.12rem;
+	border-radius: 0.3rem;
+	box-sizing: border-box;
+	background: linear-gradient(to bottom,#8de4d6,#188b79);
+	border-top: 0.16rem solid #89e2d5;
+	border-left: 0.16rem solid #20b59d;
+	border-right: 0.16rem solid #20b59d;
+	border-bottom: 0.16rem solid #188b79;
+	box-shadow: 0.05rem 0.05rem 0.05rem #89e2d5;
+
+}

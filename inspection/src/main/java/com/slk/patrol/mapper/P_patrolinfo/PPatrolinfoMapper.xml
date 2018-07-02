@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slk.patrol.mapper.P_patrolinfo.PPatrolinfoMapper">
+
+    <select id="getPPatrolinfoListByInfo" parameterType="com.slk.patrol.model.P_patrolinfo.PPatrolinfoCustom" resultType="com.slk.patrol.model.P_patrolinfo.PPatrolinfoCustom">
+        SELECT r.`name` regionName,type.`name` typeName,SUM(info.normal=0) normal,SUM(info.normal=1) normal2 FROM `p_patrolinfo` info
+
+        LEFT JOIN p_region r ON r.id = info.Region_id
+        LEFT JOIN p_patroltype type ON type.id = info.PatrolType_id
+        <where>
+            info.Modify_Date BETWEEN #{beginDate} AND DATE_SUB(#{endDate}, INTERVAL - 1 DAY)
+            <if test="region_id != null and region_id != ''">
+                AND info.Region_id = #{region_id}
+            </if>
+            <if test="patroltype_id != null and patroltype_id != ''">
+                AND info.PatrolType_id = #{patroltype_id}
+            </if>
+            <if test="normal != null and normal != ''">
+                AND info.normal = #{normal}
+            </if>
+        </where>
+        GROUP BY info.Region_id,info.PatrolType_id
+    </select>
+    
+    
+    
+    
+    <select id="getPatrolinfoByRecord" parameterType="com.slk.patrol.model.P_patrolinfo.PPatrolinfoCustom" resultType="com.slk.patrol.model.P_patrolinfo.PPatrolinfoCustom">
+        SELECT info.*,r.`name` regionName,type.`name` typeName FROM `p_patrolinfo` info
+        LEFT JOIN p_region r ON r.id = info.Region_id
+        LEFT JOIN p_patroltype type ON type.id = info.PatrolType_id
+          <where>
+              info.Modify_Date BETWEEN #{beginDate} AND DATE_SUB(#{endDate}, INTERVAL - 1 DAY)
+              <if test="region_id != null and region_id != ''">
+                  AND info.Region_id = #{region_id}
+              </if>
+              <if test="patroltype_id != null and patroltype_id != ''">
+                  AND info.PatrolType_id = #{patroltype_id}
+              </if>
+              <if test="normal != null and normal != ''">
+                  AND info.normal = #{normal}
+              </if>
+          </where>
+    </select>
+
+
+    <select id="getPatrolinfoByQrId" parameterType="java.lang.Integer" resultType="com.slk.patrol.model.P_patrolinfo.PPatrolinfoCustom">
+        SELECT info.*,r.`name` regionName,type.`name` typeName FROM `p_patrolinfo` info
+        LEFT JOIN p_region r ON r.id = info.Region_id
+        LEFT JOIN p_patroltype type ON type.id = info.PatrolType_id
+
+        WHERE info.qrcode_id = #{qrcode_id}
+        ORDER BY info.id DESC
+
+    </select>
+
+
+
+</mapper>

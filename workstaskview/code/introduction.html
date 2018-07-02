@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>临床陪护介绍</title>
+
+	<!--<link rel="import" href="./../statics/include_css.html">-->
+	<!--<link rel="import" href="./../statics/include_js.html">-->
+
+	<link href="./../statics/css/mui.min.css" rel="stylesheet"/>
+	<link href="./../statics/css/base.css" rel="stylesheet"/>
+	<link href="./../statics/css/public.css" rel="stylesheet"/>
+	<link href="./../statics/css/Introduction.css" rel="stylesheet"/>
+	<script src="./../statics/js/jquery-3.2.1.js"></script>
+	<script src="./../statics/js/mui.min.js"></script>
+	<script src="./../statics/js/H5Common.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+</head>
+<body>
+	
+	<div class="container">
+		<header class="container-top">
+			<div class="mui-pull-left">
+				<span class="mui-icon icon-back" onclick="javascript :history.back(-1);"></span>
+			</div>
+			临床陪护介绍
+		</header>
+		<div class="container-body">
+
+			<!--文字介绍-->
+			<div class="text-introduce">
+				<p class="text-introduce-details index-1">护工需经过相关专业知识和技能的培训后方能上岗，承担病区内非技术性的护理工作。</p>
+				<p class="text-introduce-details index-2">协助病人的起居、洗漱、仪容仪表的整理。不能自理的患者帮其完成如：洗脸、梳头、口腔清洁、假牙护理、擦身、更衣，协助如厕或使用便盆、便壶等工作。</p>
+				<p class="text-introduce-details index-3">协助病人满足饮食的营养需求如：喂饭、喂水，整理餐后用具。</p>
+				<p class="text-introduce-details index-4">协助病人上下床，坐轮椅。</p>
+				<p class="text-introduce-details index-5">协助患者保持床单位干净整洁，卧位正确舒适，负责整理病室环境，包括床上、床下物品。</p>
+				<p class="text-introduce-details index-6">协助医护观察病情如：病人发热，液体突减慢，局部肿胀等。收送各标本。</p>
+				<p class="text-introduce-details index-7">保持患者的舒适并保证安全（重症、昏迷、老年患者使用床档的管理，保持病人的卧位正确、舒适，但对术后重症、牵引的患者应在护理人员指导下移动病人）。</p>
+				<p class="text-introduce-details index-8">完成晨、晚间护理。做好护理记录（如：出入量）工作，保持病房内干净整洁、无异味。</p>
+			</div>
+
+			<!--<div class="text-explore">-->
+				<!--<p class="text-introduce-explore">依据患者 Barthel（巴塞尔）指数总分来评定患者病情和自理能力情况，我们将分为4个护理级别。分别为：特级护理、一级护理、二级护理和三级护理。</p>-->
+				<!--<img src="./../statics/img/Introduction-btn.png" class="find-menu-btn" onclick=window.location.href="./nursingGrade.html">-->
+			<!--</div>-->
+		</div>
+	</div>
+
+
+</body>
+
+<script type="text/javascript">
+
+	$(function () {
+        //判断是否为微信浏览器
+        var ua = window.navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+            wxTrue=true;
+            $("header").remove();
+            $(".container-body").css("top","0rem");
+        }else{
+            wxTrue=false;
+            $(".container-top").show();
+        }
+	})
+
+</script>
+
+</html>

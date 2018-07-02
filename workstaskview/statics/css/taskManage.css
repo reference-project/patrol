@@ -1,0 +1,441 @@
+
+@font-face {
+	font-family: "workstaskFont";
+	src: url('./../fonts/PingFang Regular.ttf');
+}
+/*设置字体*/
+body,html,p,span,h1,h2,h3,h4,h5,h6,button,input,a,select,textarea{
+	font-family: workstaskFont;
+}
+
+/*公共页面布局------------*/
+.container {
+	width: 15rem;
+	height: 26.68rem;
+	background-color: #ffffff;
+}
+/*头部*/
+.container-top {
+	position: fixed;
+	top: 0rem;
+	left: 0rem;
+	z-index: 666;
+	text-align: center;
+	width: 100%;
+	height: 1.78rem;
+	line-height: 1.78rem;
+	padding: 0 0.3rem;
+	font-size: 0.72rem;
+	font-weight: 700;
+	color: #333333;
+}
+.icon-back {
+	position: absolute;
+	top: 0.4rem;
+	left: 1rem;
+	background: url(../../statics/img/icon-back-black.png) no-repeat;
+	width: 0.52rem;
+	height: 0.88rem;
+	background-size: 100% 100%;
+}
+.top-title-a {
+	position: absolute;
+	top: 0rem;
+	left: 1.38rem;
+	font-weight: 400;
+	font-size: 0.6rem;
+	color: #ffffff;
+}
+/*身体*/
+.container-body {
+	position: fixed;
+	top: 1.76rem;
+	left: 0rem;
+	bottom: 0rem;
+	width: 15rem;
+	overflow-y: auto;
+}
+.task-line {
+	width: 100%;
+	height: 0.66rem;
+	background-color: #f7f7f7;
+}
+/*列表*/
+.task-manage-ul {
+	width: 100%;
+}
+.task-manage-li {
+	position: relative;
+	height: 1.8rem;
+	line-height: 1.8rem;
+}
+.task-manage-li-icon {
+	position: absolute;
+	top: 0.45rem;
+	left: 0.8rem;
+}
+.li-icon-1 {
+	background: url("./../../statics/img/task-time.png") no-repeat;
+	width: 0.98rem;
+	height: 0.98rem;
+	background-size: 100% 100%;
+}
+.li-icon-2 {
+	background: url("./../../statics/img/task-name.png") no-repeat;
+	width: 0.76rem;
+	height: 0.86rem;
+	background-size: 100% 100%;
+}
+.li-icon-3 {
+	background: url("./../../statics/img/task-phone.png") no-repeat;
+	width: 0.94rem;
+	height: 0.94rem;
+	background-size: 100% 100%;
+}
+.li-icon-4 {
+	background: url("./../../statics/img/task-age.png") no-repeat;
+	width: 0.9rem;
+	height: 0.82rem;
+	background-size: 100% 100%;
+}
+.li-icon-5 {
+	background: url("./../../statics/img/task-sex.png") no-repeat;
+	width: 0.9rem;
+	height: 0.9rem;
+	background-size: 100% 100%;
+}
+.li-icon-6 {
+	 background: url("./../../statics/img/task-position.png") no-repeat;
+	 width: 0.82rem;
+	 height: 1.06rem;
+	 background-size: 100% 100%;
+ }
+.li-icon-7 {
+	background: url("./../../statics/img/task-level.png") no-repeat;
+	width: 0.82rem;
+	height: 1.02rem;
+	background-size: 100% 100%;
+}
+.li-icon-8 {
+	background: url("./../../statics/img/task-describled.png") no-repeat;
+	width: 0.8rem;
+	height: 0.94rem;
+	background-size: 100% 100%;
+}
+.task-manage-li-span {
+	position: absolute;
+	top: 0rem;
+	left: 2.5rem;
+	z-index: 2;
+	font-size: 0.68rem;
+	font-weight: 700;
+	color: #333333;
+}
+.task-manage-li-input {
+	border: none;
+	position: absolute;
+	top: 0rem;
+	right: 0rem;
+	width: 12.5rem;
+	height: 1.8rem;
+	font-size: 0.52rem;
+	color: #999999;
+	font-weight: 700;
+	text-align: right;
+	padding-right: 0.6rem;
+	outline:medium;
+	border-bottom: 0.01rem solid #eeeeee;
+}
+.input-bottom {
+	border-bottom: 0rem solid #eeeeee;
+}
+.task-manage-li-select {
+	border: none;
+	position: absolute;
+	top: 0rem;
+	right: 0rem;
+	width: 12.5rem;
+	height: 1.8rem;
+	font-size: 0.52rem;
+	color: #999999;
+	font-weight: 700;
+	text-align: right;
+	padding-left: 10rem;
+	outline:medium;
+}
+.task-manage-li-select-time {
+	border: none;
+	position: absolute;
+	top: 0rem;
+	right: 0rem;
+	width: 12.5rem;
+	height: 1.8rem;
+	font-size: 0.52rem;
+	color: #999999;
+	font-weight: 700;
+	text-align: right;
+	padding-left: 8.5rem;
+	outline:medium;
+	border-bottom: 0.01rem solid #eeeeee;
+}
+.select-bottom {
+	border-bottom: 0.01rem solid #eeeeee;
+}
+.task-manage-li-div {
+	position: absolute;
+	top: 0rem;
+	right: 0rem;
+	width: 12.5rem;
+	height: 1.8rem;
+	border-top: 0.01rem solid #eeeeee;
+}
+/*任务描述*/
+.task-manage-div {
+	position: relative;
+	height: 5rem;
+}
+.task-manage-li-textarea {
+	position: absolute;
+	top: 0.05rem;
+	left: 2.5rem;
+	width: 11.92rem;
+	height: 5rem;
+	padding-top: 0.3rem;
+	text-indent: 1.4rem;
+	font-size: 0.48rem;
+	color: #999999;
+	font-weight: 700;
+	border: 0.02rem solid #eeeeee;
+	border-radius: 0.15rem;
+	outline:medium;
+}
+
+.task-manage-btn {
+	width: 100%;
+	text-align: center;
+	margin-top: 0.9rem;
+}
+.mui-btn-task {
+	width: 12.4rem;
+	height: 2rem;
+	line-height: 2rem;
+	font-size: 0.68rem;
+	color: #ffffff;
+	letter-spacing: 0.36rem;
+	border-radius: 0.15rem;
+	background-color: #3d7cf0;
+	outline: none;
+}
+
+/*替换select样式*/
+select {
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	background: url("./../../statics/img/select-right.png") no-repeat;
+	width: 0.32rem;
+	height: 0.56rem;
+	background-size: 0.32rem 0.56rem;
+	background-position: 11.7rem 0.6rem;
+}
+
+/*placeholder颜色*/
+.task-manage-li-input::-webkit-input-placeholder {
+	color: #999999;
+}
+.task-manage-li-input:-moz-placeholder {
+	/* Firefox 18- */
+	color: #999999;
+}
+.task-manage-li-input::-moz-placeholder {
+	/* Firefox 19+ */
+	color: #999999;
+}
+.task-manage-li-input:-ms-input-placeholder {
+	color: #999999;
+}
+
+/*护理等级弹出层*/
+.task-model {
+	position: fixed;
+	top: 0rem;
+	left: 0rem;
+	bottom: 0rem;
+	right: 0rem;
+	z-index: 999999;
+	width: 100%;
+	height: 100%;
+	background-color: #f7f7f7;
+}
+
+.Grade-group-ul {
+	position: absolute;
+	top: 0.8rem;
+	left: 0rem;
+	right: 0rem;
+	bottom: 0.8rem;
+	z-index: 5;
+	width: 100%;
+	padding: 0rem 0.6rem;
+	overflow-y: auto;
+}
+.Grade-group-li {
+	width: 13.8rem;
+	padding: 0.8rem 0.88rem 0.36rem 0.88rem;
+	border-radius: 0.1rem;
+	margin-bottom: 0.3rem;
+	background-color: #ffffff;
+}
+.Grade-group {
+	position: relative;
+	line-height: 1rem;
+	margin-bottom: 0.2rem;
+	border-bottom: 0.04rem solid #cccccc;
+}
+.Grade-title {
+	font-size: 0.65rem;
+	line-height: 0.7rem;
+	font-weight: 700;
+	color: #333333;
+}
+.Grade-name {
+	position: absolute;
+	top: 0.1rem;
+	left: 2rem;
+	width: 2rem;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	text-align: center;
+	color: #ffffff;
+	font-size: 0.5rem;
+	border-radius: 0.18rem;
+}
+.Grade-name-0 {
+	background-color: #e6212a;
+}
+.Grade-name-1 {
+	background-color: #e61c4c;
+}
+.Grade-name-2 {
+	background-color: #f08519;
+}
+.Grade-name-3 {
+	background-color: #fdd100;
+}
+.Grade-group-Basis {
+	line-height: 1rem;
+	font-size: 0.7rem;
+	color: #333333;
+}
+.Grade-group-detalis {
+	padding: 0rem 0rem 0rem 0.8rem ;
+}
+.Grade-group-p {
+	position: relative;
+	line-height: 1rem;
+	font-size: 0.62rem;
+	font-weight: 700;
+	color: #666666;
+}
+.Grade-group-p:before {
+	position: absolute;
+	top: 0rem;
+	left: -0.8rem;
+	font-size: 0.7rem;
+	color: #666666;
+}
+.Grade-p-1:before {
+	content: "1.";
+}
+.Grade-p-2:before {
+	content: "2.";
+}
+.Grade-p-3:before {
+	content: "3.";
+}
+.Grade-p-4:before {
+	content: "4.";
+}
+
+/*位置搜索框*/
+.search-ul {
+	position: absolute;
+	top: 2rem;
+	left: 2.4rem;
+	z-index: 666;
+	width: 12rem;
+	background-color: #f4bba7;
+	box-shadow: 0 0 0.12rem #000;
+}
+.search-li {
+	width: 12rem;
+	height: 1.2rem;
+	line-height: 1.2rem;
+	font-size: 0.55rem;
+	color: #ffffff;
+	padding-left: 0.5rem;
+	border-bottom: 0.02rem solid #ddd;
+}
+
+/*提交成功提示*/
+.submitMessage {
+	display: none;
+	position: fixed;
+	top: 13rem;
+	left: 3.5rem;
+	z-index:333;
+	font-size: 0.7rem;
+	font-family:FangSong;
+	width: 8rem;
+	line-height: 1.8rem;
+	text-align:center;
+	border-radius: 0.3rem;
+	color: #fb5d52;
+	background: rgba(0,255,255,0.9);
+}
+
+/*位置及床号*/
+.PositionBedNum {
+	display: none;
+	position: fixed;
+	top: 0rem;
+	left: 0rem;
+	right: 0rem;
+	bottom: 0rem;
+	padding-top: 11.5rem;
+	z-index:334;
+	text-align: center;
+	background: rgba(0,0,0,0.5);
+}
+.PositionInput {
+	float: left;
+	border: none;
+	margin-left: 1.25rem;
+	width: 10.5rem;
+	height: 1.8rem;
+	font-size: 0.7rem;
+	color: #999999;
+	font-weight: 700;
+	text-align: left;
+	border-top-left-radius: 0.1rem;
+	border-bottom-left-radius: 0.1rem;
+	padding-left: 0.6rem;
+	outline:medium;
+	border-bottom: 0.01rem solid #eeeeee;
+	background-color: #ffffff;
+}
+.PositionBtn {
+	float: left;
+	border: none;
+	width: 2rem;
+	height: 1.8rem;
+	font-size: 0.7rem;
+	color: #ffffff;
+	font-weight: 700;
+	text-align: center;
+	border-top-right-radius: 0.1rem;
+	border-bottom-right-radius: 0.1rem;
+	outline:medium;
+	border-bottom: 0.01rem solid #eeeeee;
+	background-color: #3d7cf0;
+}

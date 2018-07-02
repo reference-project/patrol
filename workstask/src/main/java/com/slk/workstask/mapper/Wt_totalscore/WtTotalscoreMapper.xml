@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slk.workstask.mapper.Wt_totalscore.WtTotalscoreMapper">
+    <resultMap id="BaseResultMap" type="com.slk.workstask.model.Wt_evaluate.Wt_totalscore">
+        <id column="id" property="id"/>
+        <result column="hospitalid" property="hospitalid"/>
+        <result column="hospital" property="hospital"/>
+        <result column="rolename" property="rolename"/>
+        <result column="iscore" property="iscore"/>
+        <result column="suggestion" property="suggestion"/>
+        <result column="existing_problems" property="existingproblems"/>
+        <result column="imgurl" property="imgurl"/>
+        <result column="createtime" property="createtime"/>
+    </resultMap>
+    <insert id="insertTotalSocre" useGeneratedKeys="true" keyProperty="id">
+        insert wt_totalscore
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test='hospitalid != null and hospitalid != "" '>
+                hospitalid,
+            </if>
+        <if test='hospital != null and hospital != "" '>
+            hospital,
+        </if>
+        <if test='rolename != null and rolename != "" '>
+            rolename,
+        </if>
+        <if test='iscore != null and iscore != "" '>
+            iscore,
+        </if>
+        <if test='suggestion != null and suggestion != "" '>
+            suggestion,
+        </if>
+        <if test='existingproblems != null and existingproblems != "" '>
+            existingproblems,
+        </if>
+        <if test='imgurl != null and imgurl != "" '>
+            imgurl,
+        </if>
+         createtime
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+
+            <if test='hospital != null and hospital != "" '>
+                #{hospital},
+            </if>
+            <if test='rolename != null and rolename != "" '>
+                #{rolename},
+            </if>
+            <if test='iscore != null and iscore != "" '>
+                #{iscore},
+            </if>
+            <if test='suggestion != null and suggestion != "" '>
+                #{suggestion},
+            </if>
+            <if test='existingproblems != null and existingproblems != "" '>
+                #{existingproblems},
+            </if>
+            <if test='imgurl != null and imgurl != "" '>
+                #{imgurl},
+            </if>
+           NOW()
+        </trim>
+    </insert>
+</mapper>

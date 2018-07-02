@@ -1,0 +1,216 @@
+<!doctype html>
+	<!--suppress ALL -->
+<head>
+		<title>管理员管理</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<link rel="import" href="../../statics/include-header.html">
+		<link rel="import" href="../../statics/include-JS.html">
+	</head>
+	<body>
+	<abbr>
+		<div id="body1">
+			<button type="button" id="openAddUser" class="btn btn-wide btn-primary"  data-toggle="modal" data-target="#add-modal"><!--data-toggle="modal" data-target="#md-modal"-->
+				添加用户
+			</button>
+			<br/>
+			<div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="modal-error-label">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header state modal-danger">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="modal-error-label"><i class="fa fa-warning"></i>删除用户</h4>
+						</div>
+						<div class="modal-body">
+							请您确定要删除此数据吗？
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="delUser()">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="modal fade " id="add-modal" tabindex="-1" role="dialog" aria-labelledby="modal-default-label">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header state modal-primary">
+							<h4 class="modal-title" id="modal-default-label">用户信息</h4>
+						</div>
+						<div class="modal-body">
+							<div class="col-md-12">
+								<div class="panel">
+									<div class="panel-content">
+										<div class="row">
+											<div class="col-sm-12">
+												<form id="addUserForm" class="form-horizontal form-stripe">
+													<h6 class="mb-xlg text-center"><b>用户信息</b></h6>
+													<div class="form-group">
+														<label  class="col-sm-2 control-label">姓名</label>
+														<div class="col-sm-10">
+															<input type="text" id="username" class="form-control" data-id="notnull"  name="username" placeholder="请输入姓名" autocomplete="off">
+														</div>
+													</div>
+													<div class="form-group">
+														<label  class="col-sm-2 control-label">密码</label>
+														<div class="col-sm-10">
+															<input type="text" onfocus="this.type='password'" id="password" data-id="notnull" name="password" class="form-control" placeholder="请输入密码" autocomplete="off"/>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div class="reminder-info"></div>
+							<button onclick="addUser()" type="button" class="btn btn-primary">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+			<div class="modal fade " id="md-modal" tabindex="-1" role="dialog" aria-labelledby="modal-default-label">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header state modal-primary">
+							<h4 class="modal-title" id="modal-default-label">用户信息</h4>
+						</div>
+						<div class="modal-body">
+							<div class="col-md-12">
+								<div class="panel">
+									<div class="panel-content">
+										<div class="row">
+											<div class="col-sm-12">
+												<form id="modifyUser" class="form-horizontal form-stripe">
+													<h6 class="mb-xlg text-center"><b>用户信息</b></h6>
+													<input hidden="hidden" id="id" name="id">
+													<div class="form-group">
+														<label  class="col-sm-2 control-label">姓名</label>
+														<div class="col-sm-10">
+															<input type="text" id="updateUsername" class="form-control" data-id="notnull"  name="username" placeholder="请输入姓名" autocomplete="off">
+														</div>
+													</div>
+													<div class="form-group">
+														<label  class="col-sm-2 control-label">老密码</label>
+														<div class="col-sm-10">
+															<input type="text" onfocus="this.type='password'" id="oldPassword" data-id="notnull" name="password" class="form-control" placeholder="请输入旧密码" autocomplete="off"/>
+														</div>
+													</div>
+													<div class="form-group">
+														<label  class="col-sm-2 control-label">新密码</label>
+														<div class="col-sm-10">
+															<input type="text" onfocus="this.type='password'" id="newPassword" data-id="notnull" name="newPassword" class="form-control" placeholder="请输入新密码" autocomplete="off"/>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div class="reminder-info"></div>
+							<button onclick="updateUser()" type="button" class="btn btn-primary">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row animated fadeInRight">
+				<div class="col-sm-12">
+					<div class="panel">
+						<div class="panel-content">
+							<div class="table-responsive">
+								<table id="sqz" class="data-table table table-striped nowrap table-hover" cellspacing="0" width="100%">
+									<thead>
+									<tr>
+										<th name="id">ID</th>
+										<th name="username" style="width: 80%;">姓名</th>
+										<th name="cz" >状态</th>
+									</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			$(function() {
+				//初始化数据
+				initDatas();
+				//预留若有初始化样式或对JS有一些初始化要求则可写入，如：页面加载时 初始化自动生成一批li div等标签，若无作用可去掉
+				initJs("modifyUser","md-modal","body1");
+			});
+            function initDatas() {
+                var result=showHtml(url + "user/selectUserAll","");
+                if(null!=result){
+                    for(var p in result.userList){
+                        var html='<button type="button" onclick=upUser(' + JSON.stringify(result.userList[p])+ ') class="btn btn-wide btn-info" data-toggle="modal" data-target="#md-modal">' +
+                            '修改' +
+                            '</button>&nbsp' +
+                            '<button type="button" onclick="selUser(' + result.userList[p].id + ')" class="btn btn-wide btn-danger" data-toggle="modal" data-target="#error-modal">' +
+                            '删除' +
+                            '</button>';
+                        result.userList[p].cz=html;
+                    }
+                    ShowDataTable("sqz",result.userList ,"id");
+                }
+            }
+
+            function addUser(user){
+                $("#addUserForm").clearfrom();
+            }
+
+            //添加修改方法
+            function addUser(){
+                var user = $("#addUserForm").serializeJson();
+                if(check_Form(addUserForm)){
+                    messagePrompt(showHtml(url+"user/insertUser",user));
+                    showHtmlRight('./code/user/userList.html');
+                }
+            }
+
+            //修改用户前操作，如数据渲染，环境准备（清空表单加载效果等）
+            function upUser(user){
+                $("#modifyUser").clearfrom();
+                $("#modifyUser").setForm(user);
+            }
+            //添加修改方法
+            function updateUser(){
+                var user = $("#modifyUser").serializeJson();
+                if(check_Form(modifyUser)){
+                    messagePrompt(showHtml(url+"user/updateUser",user));
+                    showHtmlRight('./code/user/userList.html');
+                }
+            }
+			var userFid;
+            function selUser(id){
+                userFid=id;
+			}
+            //删除方法
+            function delUser(){
+                var result=showHtml(url+"user/deleteUser/"+userFid,"");
+                if(result!=null&&result.flag){
+                    showHtmlRight('./code/user/userList.html')
+                }
+			}
+			</script>
+	</abbr>
+	</body>
+</html>

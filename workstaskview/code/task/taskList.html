@@ -1,0 +1,517 @@
+<!doctype html>
+<!--suppress ALL -->
+<head>
+	<title>管理员管理</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+	<link rel="import" href="../../statics/include-header.html">
+	<link rel="import" href="../../statics/include-JS.html">
+</head>
+<body>
+<abbr>
+
+	<style>
+		.InfoFinds {
+			padding-right: 20px;
+			display: inline-block;
+			width: 120px;
+			color: #333333;
+			overflow: hidden;
+		}
+	</style>
+
+	<link rel="stylesheet" href="./statics/dist/css/default/zebra_datepicker.css" type="text/css">
+	<script src="./statics/dist/zebra_datepicker.src.js"></script>
+	<div id="body1">
+		<button type="button" id="openAddUser" class="btn btn-wide btn-primary" data-toggle="modal" data-target="#md-modal" style="z-index: 99999;">
+			添加任务
+		</button>
+		<br/>
+		<div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="modal-error-label" style="z-index: 99999;">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header state modal-danger">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="modal-error-label"><i class="fa fa-warning"></i>删除任务</h4>
+					</div>
+					<div class="modal-body">
+						请您确定要删除此数据吗？
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="delWork()">确定</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade " id="md-modal" tabindex="-1" role="dialog" aria-labelledby="modal-default-label" >
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header state modal-primary">
+						<h4 class="modal-title" id="modal-default-label">任务信息</h4>
+					</div>
+					<div class="modal-body">
+						<div class="col-md-12">
+							<div class="panel">
+								<div class="panel-content">
+									<div class="row">
+										<div class="col-sm-12">
+											<form id="modifyTask" class="form-horizontal form-stripe">
+												<h6 class="mb-xlg text-center"><b>任务信息</b></h6>
+												<input hidden="hidden" id="id" name="id">
+												<div class="form-group">
+													<label  class="col-sm-2 control-label">任务描述</label>
+													<div class="col-sm-10">
+														<textarea class="form-control" id="task" data-id="notnull" name="task" placeholder="请输入任务描述" autocomplete="off"></textarea>
+													</div>
+												</div>
+												<div class="form-group">
+
+													<!--可选择多张图片-->
+													<label  class="col-sm-2 control-label">合同图片</label>
+													<button type="button" class="choiceImg" onclick="selectFile(); "  style=" border: 2px solid gr; border-radius: 5px; margin-right: 40px;" >选择图片</button>
+													<input type="text" name="imgFake"  style="display: none;" />
+													<ul class="task-ul" id="task-ul">
+
+													</ul>
+													<span style="color: #e73d4a;"></span>
+												</div>
+												<div class="form-group">
+													<label  class="col-sm-2 control-label">任务标准金额(天)</label>
+													<div class="col-sm-10">
+														<!--整数小数都可以，小数点后2为-->
+														<input type="text"  class="form-control" data-id="notnull" onkeyup="this.value=this.value.replace(/\D/g,'')" id="standardmoney" name="standardmoney" placeholder="" autocomplete="off">
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label  class="col-sm-2 control-label">开始时间</label>
+													<div class="col-sm-10">
+														<input type="text" name="starttime" class='form-control' id="starttime"  data-zdp_readonly_element="true" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label  class="col-sm-2 control-label">结束时间</label>
+													<div class="col-sm-10">
+														<input type="text" name="endtime" class='form-control' id="endtime" data-zdp_readonly_element="true"/>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label  class="col-sm-2 control-label">选择护工</label>
+													<div class="col-sm-10">
+														<!--可搜索的下拉列表，不是必填项，但若想让任务开始，则此处是必填项-->
+														<select id="worksselect" name="wordid"></select>
+														<input type="hidden" id="workname" name="workname">
+													</div>
+												</div>
+												<div class="form-group">
+													<label  class="col-sm-2 control-label">是否开始任务</label>
+													<div class="col-sm-10">
+														<select class="form-control" id="states" name="states" >
+
+														</select>
+														<!--<input type="text" id="states" name="states" value="0" />--><!--默认为0-->
+														<!--任务状态分3总 0 对应任务发布中 1任务进行中 2任务完成，在新建任务时+若选择了护工则默认为任务进行中！-->
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div class="reminder-info"></div>
+						<button onclick="ModifyTask()" type="button" class="btn btn-primary">确定</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade " id="fillinMoney" tabindex="-1" role="dialog" aria-labelledby="modal-default-label">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header state modal-primary">
+						<h4 class="modal-title" id="modal-default-label">请输入最终金额</h4>
+					</div>
+					<div class="modal-body">
+						<div class="col-md-12">
+							<input type="text" data-id="notnull" onkeyup="this.value=this.value.replace(/\D/g,'')" class="form-control" id="completeMoney" />
+							<br/>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div class="reminder-info"></div>
+						<input type="hidden" id="completeId" />
+						<input type="hidden" id="completeState" />
+						<button onclick="completeTask()" type="button" class="btn btn-primary">确定</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row animated fadeInRight">
+			<div class="col-sm-12">
+				<div class="panel">
+					<div class="panel-content">
+						<div class="table-responsive">
+							<table id="sqz" class="data-table table table-striped nowrap table-hover" cellspacing="0" width="100%">
+								<thead>
+								<th name="id">ID</th>
+								<th name="taskcode">任务编号</th>
+								<th name="task">任务描述</th>
+								<th name="states">任务状态</th>
+								<th name="contractpic">合同照片</th>
+								<th name="standardmoney">任务标准价格(天)</th>
+								<!--<th name="idcode">任务最终价格(天)</th>-->
+								<th name="taskmoney">任务总金额</th>
+								<th name="starttime">任务开始时间</th>
+								<th name="endtime">任务结束时间</th>
+								<th name="workname">护工姓名</th>
+								<th name="realityendtime">任务完成时间</th>
+								<th name="days">任务天数</th>
+								<th name="createtime">任务创建时间</th>
+								<!--<th name="workmoney">护工工资</th>-->
+								<th name="cz" style="width: 20%">操作</th>
+								<!--操作有 3个 按钮，分别为 删除 修改  （开始/完成）-》修改任务的状态 要么开始要么完成-->
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!--显示图片-->
+	<div id="ImgBox">
+
+	</div>
+
+	<script type="text/javascript">
+
+        var taskFid;
+        $(function() {
+            //初始化数据
+            initDatas();
+            //预留若有初始化样式或对JS有一些初始化要求则可写入，如：页面加载时 初始化自动生成一批li div等标签，若无作用可去掉
+            initJs("modifyTask","md-modal","body1");
+        });
+        var open = 0;
+        $("#openAddUser").click(function () {
+            open = 0;
+            $("#modifyTask").clearfrom();
+            $("#starttime").val(new Date().Format("yyyy-MM-dd hh:mm"));
+            $("#endtime").val(new Date().Format("yyyy-MM-dd hh:mm"));
+            ecalendar("#starttime","start");
+            ecalendar("#endtime","end");
+            $("#preview").attr("src","");
+            selectorWorks();
+            states=null;
+            count=0;
+            $("#task-ul").empty();
+        })
+
+
+       /* $(".upButton").click(function () {
+            states=null;
+            open = 1;
+        })*/
+
+
+        function selectorWorks(){
+            $("#worksselect").empty();
+            var type = "<option  value=''>无</option>";
+            for(var ids in works){
+                var worknumber=works[ids].worknumber!=null?works[ids].worknumber:'';
+                type += '<option  value="'+works[ids].id+'"  >'+worknumber+works[ids].workname+'</option>';
+            };
+            $("#worksselect").append(type);
+            $("#worksselect").searchableSelect();
+		}
+        var works;
+        function initDatas() {
+            var result=showHtml(url + "task/selectTaskAll","");
+            ManyImg(result);
+            if(null!=result){
+                works=result.works;
+                var statename = "";
+                var statButton = "";
+                for(var p in result.tasks){
+                    <!--任务状态分3总 0 对应任务发布中 1任务进行中 2任务完成，在新建任务时+若选择了护工则默认为任务进行中！-->
+                    if(result.tasks[p].states==0){
+                        statename = "发布中";
+                        statButton = "开始";
+                    }else if(result.tasks[p].states==1){
+                        statename = "进行中";
+                        statButton = "完成";
+                    }else if (result.tasks[p].states==2){
+                        statename = "已完成";
+                        statButton = "已完成"
+                    }
+                    result.tasks[p].cz='<button type="button" id="upButton'+result.tasks[p].id+'" onclick="upUser(' + result.tasks[p].id + ')" class="btn btn-wide btn-info upButton" data-toggle="modal" data-target="#md-modal">' +
+                        '修改' +
+                        '</button>&nbsp' +
+                        '<button type="button" onclick="setdel(' + result.tasks[p].id + ')" class="btn btn-wide btn-danger" data-toggle="modal" data-target="#error-modal">' +
+                        '删除' +
+                        '</button>&nbsp' +
+                        '<button type="button" id="stateButton'+result.tasks[p].id+'"  onclick="updateState(' + result.tasks[p].id + ','+result.tasks[p].states+')" class="btn btn-wide btn-success" >' +
+                        statButton +
+                        '</button>';
+
+                    result.tasks[p].states = statename;
+
+                    result.tasks[p].task='<a class="InfoFinds" title="'+result.tasks[p].task+'">'+result.tasks[p].task+'</a>';
+
+                }
+                ShowDataTable("sqz",result.tasks ,"id");
+            }
+        }
+
+        //多图预览
+        function ManyImg(result) {
+            var data = result.tasks;
+            for (var ids in data){
+                //没有图片不显示查看
+                if(data[ids].contractpic == "") {
+                    data[ids].contractpic='';
+                }else if(data[ids].contractpic == null){
+                    data[ids].contractpic='';
+                }else{
+					data[ids].contractpic='<a href="javascript:;" id="imgPosition'+data[ids].id+'" onmouseover="lookImg('+data[ids].id+',\''+data[ids].contractpic+'\');" onmouseout="closeImg('+data[ids].id+');">' +'查看' +
+						'</a>';
+                }
+            }
+		}
+
+        function setdel(fid){
+            taskFid=fid;
+        }
+        //修改用户前操作，如数据渲染，环境准备（清空表单加载效果等）
+        var states;
+        function upUser(id){
+            open=1;
+            $("#task-ul").empty();
+            var result=showHtml(url + "task/selectTaskById/"+id,"");
+            var user = result.task;
+            $("#modifyTask").clearfrom();
+            $("#preview").attr("src",user.contractpic);
+            $("#modifyTask").setForm(user);
+            selectorWorks();
+            $("#workname").val(user.workname)
+            $(".searchable-select-holder").text($("#workname").val());
+            states=user.states;
+            ecalendar("#starttime","start");
+            ecalendar("#endtime","end");
+            count=0;
+            var picUsls=user.contractpic;
+            if(null!=picUsls){
+                var result=picUsls.split(",");
+                for(var ids=0; ids<result.length; ids++){
+                    count++;
+					if(result[ids]!=""){
+                        $("#task-ul").append(' <li class="task-li">'+
+                            '<img class="preview" id="preview'+count+'" src="'+result[ids]+'">'+
+                            '<div class="task-ring" ></div>'+
+                            '<input type="hidden" name="imgurls" value="'+result[ids]+'"/>'+
+                            '</li>');
+					}
+
+				}
+
+			}
+        }
+		//方法应该修改
+        $("#worksselect").change(function(){
+            $("#states").empty();
+            if(open==1){
+                var html=' <option value="0">已发布</option><option value="1">进行中</option><option value="2">已完成</option>';
+                $("#states").append(html);
+                $("#states").attr("disabled","disabled");
+			}else{
+                var html='<option value="0">已发布</option>';
+                if($("#worksselect").val()!=''&&$("#worksselect").val()!=null){
+                    html+='<option value="1">进行中</option>'
+				}
+                $("#states").append(html)
+				$("#states").removeAttr("disabled");
+			}
+        })
+
+
+
+        /*function getWorksName(obj) {
+            //护工名称
+            var text = obj.options[obj.selectedIndex].text;
+            //open,判断添加/修改操作
+            if (open==0){
+                if(obj.value=='' ){
+                    document.getElementById("states").value=0;
+                }else{
+                    document.getElementById("states").value=1;
+                }
+            }
+            document.getElementById("workname").value = obj.options[obj.selectedIndex].text;
+        }*/
+
+        //添加修改方法
+        function ModifyTask(){
+            delNUllFiles();
+            var starttime=$("#starttime").val();
+            var end=$("#endtime").val();
+            if(CompareDate(starttime,end)){
+                checkMessage("开始时间必须小于结束时间");
+                return;
+            }
+            if(check_Form(modifyTask)){
+                if(messagePrompt(showHtml(url+"task/setTaskByInfo",$("#modifyTask").serializeJson()))){
+                    showHtmlRight('./code/task/taskList.html');
+                }
+            }
+
+        }
+        //删除方法
+        function delWork(){
+            if(messagePrompt(showHtml(url+"task/deleteTaskById/"+taskFid,""))){
+                showHtmlRight('./code/task/taskList.html')
+            }
+        }
+
+        //更新任务状态
+        function updateState(id,state) {
+            if(state==0){
+                if(messagePrompt(showHtml(url+"task/setTaskStateById/"+id+"/"+state+"/0",""))){
+                    showHtmlRight('./code/task/taskList.html');
+                }
+
+            } else if(state==1){
+                $("#fillinMoney").modal();
+                $("#completeId").val(id);
+                $("#completeState").val(state);
+
+            }
+        }
+
+        //完成任务输入金额提交
+        function completeTask(){
+            var id = $("#completeId").val();
+            var state = $("#completeState").val();
+            var taskmoney = $("#completeMoney").val();
+
+            var result=showHtml(url + "task/selectTaskById/"+id,"");
+            var newDate=new Date().Format("yyyy-MM-dd hh:mm");
+
+            if(!CompareDate(newDate,result.task.starttime)){
+                checkMessage("任务完成时间必须大于开始时间");
+                return;
+            }
+            if(check_Form(fillinMoney)){
+                if(messagePrompt(showHtml(url+"task/setTaskStateById/"+id+"/"+state+"/"+taskmoney,""))){
+                    showHtmlRight('./code/task/taskList.html');
+                }
+            }
+        }
+
+        //图片预览
+        function lookImg(id,url){
+
+            var Top = $("#imgPosition"+id).offset().top+10;
+            var Left = $("#imgPosition"+id).offset().left+100;
+            $("#ImgBox").css({"position":"fixed","top":Top+"px","left":Left+"px","z-Index":"999999"});
+
+            var imgurl=url.split(",");
+			for(var i=0;i<imgurl.length;i++){
+				$("#ImgBox").append('<img class="ImgBox'+id+'"  src="'+imgurl[i]+'" style="width: 200px;height: 280px;">');
+			}
+        }
+        function closeImg(id){
+            $(".ImgBox"+id).remove();
+        }
+
+		var count=0;
+        //模拟点击上传图片按钮
+        function selectFile(){
+            count++;
+            createFile(count);
+            $("#files"+count).click();
+
+        }
+        //生成图片
+		function createFile(count){
+            $("#task-ul").append("<input type='file' name='multipartFile' id='files"+count+"' style='display:none;'  onchange='fileType();' />");
+        }
+		//生成展示层
+		function createFileView(count){
+            var docObj = document.getElementById("files"+count);
+            $("#task-ul").append(' <li class="task-li">'+
+                '<img class="preview" id="preview'+count+'" src="'+window.URL.createObjectURL(docObj.files[0])+'">'+
+                '<div class="task-ring" ></div>'+
+                '</li>');
+		}
+
+        //添加   or 修改  显示选中的图片
+        $(".choiceImg").click(function () {
+            $(this).next().click();
+
+        })
+		function fileType(){
+            var name=$("#files"+count).val();
+            var fileName = name.substring(name.lastIndexOf(".")+1).toLowerCase();
+            if(fileName != ''){
+                /!* 选择的不是图片就重新选 *!/
+                if(fileName !="jpg" && fileName !="jpeg" && fileName !="png" && fileName !="gif"){
+                    checkMessage("请选择图片文件上传！");
+                    return false;
+                    /!* 是图片就显示缩略图 *!/
+                }else{
+                    createFileView(count);
+                    return true;
+                }
+            }else{
+                $(this).next().next().show();
+                return false;
+            }
+        }
+
+
+        function ecalendar(time,type){
+            if(type=="start"){
+                $(time).Zebra_DatePicker({
+                    format: 'Y-m-d H:i'
+                });
+            }
+            if(type=="end"){
+                $(time).Zebra_DatePicker({
+                    format: 'Y-m-d H:i'
+                });
+            }
+        }
+
+
+        //上传图片删除
+        $("#task-ul").on("click",".task-ring",function(){
+            var id=$(this).siblings().attr("id");
+            id=id.replace("preview","");
+            $("#files"+id).remove();
+            $(this).parent().remove();
+		});
+        //移除为空的图片文件
+        function delNUllFiles(){
+            $('input[type="file"]').each(function(){
+                var val=$(this).val();
+                if(val==null||val==""){
+                    $(this).remove();
+				}
+			})
+		}
+	</script>
+
+</abbr>
+</body>
+</html>

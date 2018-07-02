@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slk.patrol.mapper.P_qrcode.PQrcodeMapper">
+
+    <select id="getQrCodeListAll" resultType="com.slk.patrol.model.P_qrcode.PQrcodeCustom">
+        SELECT code.*,regionF.id parentId,regionF.`name` parentName,region.name regionName,type.name typeName
+        FROM p_qrcode code
+            LEFT JOIN p_region region ON region.id = code.Region_ID AND region.Parent_ID != 0
+            LEFT JOIN p_patroltype type ON  type.id = code.PatrolType_ID
+            LEFT JOIN p_region regionF ON regionF.id = region.Parent_ID AND regionF.Parent_ID = 0
+    </select>
+
+
+</mapper>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>任务管理</title>
+
+	<!--<link rel="import" href="./../statics/include_css.html">-->
+	<!--<link rel="import" href="./../statics/include_js.html">-->
+
+
+	<link href="./../statics/css/mui.picker.min.css" rel="stylesheet"/>
+	<!--<link href="./../statics/css/mui.min.css" rel="stylesheet"/>-->
+	<link href="./../statics/css/base.css" rel="stylesheet"/>
+	<link href="./../statics/css/public.css" rel="stylesheet"/>
+	<link href="./../statics/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="./../statics/css/taskManage.css" rel="stylesheet">
+	<script src="./../statics/js/jquery-3.2.1.js"></script>
+	<script src="./../statics/js/mui.min.js"></script>
+	<script src="./../statics/js/H5Common.js"></script>
+	<script src="./../statics/js/check.js"></script>
+	<script src="./../statics/js/message.js"></script>
+	<script src="./../statics/js/public.js"></script>
+	<script src="./../statics/js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body>
+
+
+<div class="container">
+	<header class="container-top">
+		<div class="mui-pull-left">
+			<span class="mui-icon icon-back" onclick="javascript :history.back(-1);"></span>
+		</div>
+		任务管理
+	</header>
+	<div class="container-body">
+		<div class="task-line"></div>
+		<form id="taskform">
+			<ul class="task-manage-ul">
+				<li class="task-manage-li">
+					<i class="task-manage-li-icon li-icon-1"></i>
+					<span class="task-manage-li-span">上岗时间</span>
+					<select class="task-manage-li-select-time" id="tasktime"  name="demanddate">
+						<option>一小时以内</option>
+						<option>一小时以上</option>
+					</select>
+				</li>
+				<li class="task-manage-li">
+					<i class="task-manage-li-icon li-icon-2"></i>
+					<span class="task-manage-li-span">姓名</span>
+					<input type="text" class="task-manage-li-input" id="workname"  onkeyup="KeyLeaveing('workname')"  name="name"  data-id="notnull" placeholder="请输入您的姓名" autocomplete="off">
+				</li>
+				<li class="task-manage-li">
+					<i class="task-manage-li-icon li-icon-3"></i>
+					<span class="task-manage-li-span">电话</span>
+					<input type="text" class="task-manage-li-input" id="phone"  onkeyup="KeyLeaveing('phone')" name="phone"  data-id="notnull" placeholder="请输入您的电话" autocomplete="off"  maxlength="11">
+				</li>
+				<li class="task-manage-li">
+					<i class="task-manage-li-icon li-icon-4"></i>
+					<span class="task-manage-li-span">年龄</span>
+					<input type="text" class="task-manage-li-input" id="age"  onkeyup="KeyLeaveing('age')" name="age" data-id="notnull" placeholder="请输入您的年龄" autocomplete="off" maxlength="3"  >
+				</li>
+				<li class="task-manage-li">
+					<i class="task-manage-li-icon li-icon-5"></i>
+					<span class="task-manage-li-span">性别</span>
+					<select class="task-manage-li-select select-bottom" id="sex"  name="sex">
+						<option value="1">男</option>
+						<option value="0">女</option>
+					</select>
+				</li>
+				<li class="task-manage-li">
+					<i class="task-manage-li-icon li-icon-6"></i>
+					<span class="task-manage-li-span">位置</span>
+					<input type="text" class="task-manage-li-input input-bottom" id="search-input" data-id="notnull" name="position" placeholder="请输入位置及床号" autocomplete="off" maxlength="100">
+					<ul class="search-ul" id="search-ul">
+					</ul>
+				</li>
+
+				<div class="task-line"></div>
+				<li class="task-manage-li">
+					<i class="task-manage-li-icon li-icon-7"></i>
+					<span class="task-manage-li-span">护理等级</span>
+					<input type="text" class="task-manage-li-input input-bottom" id="level" data-id="notnull" name="nursinglevel" placeholder="请选择" autocomplete="off" onclick="showTaskLevel();">
+				</li>
+				<li class="task-manage-li">
+					<i class="task-manage-li-icon li-icon-8"></i>
+					<span class="task-manage-li-span">任务描述</span>
+					<div class="task-manage-li-div"></div>
+				</li>
+				<div class="task-manage-div">
+					<textarea class="task-manage-li-textarea" id="discribe" name="task" placeholder="任务描述..."></textarea>
+				</div>
+
+				<div class="task-manage-btn">
+					<input type="hidden" name="type" value="1">
+					<button type="button" class="mui-btn-task" onclick="setTask();">确定</button>
+				</div>
+			</ul>
+		</form>
+	</div>
+</div>
+
+<!--护理等级弹出框-->
+<div class="task-model" hidden>
+	<ul class="Grade-group-ul">
+		<li class="Grade-group-li" onclick="closeTaskLevel(this);">
+			<div class="Grade-group">
+				<label class="Grade-title">等级：</label>
+				<div class="Grade-name Grade-name-0">特级</div>
+			</div>
+			<div class="Grade-group-Basis">
+				<label class="Grade-title">依据：</label>
+			</div>
+			<div class="Grade-group-detalis">
+				<p class="Grade-group-p Grade-p-1">维持生命，实施抢救性治疗的重症监护患者；</p>
+				<p class="Grade-group-p Grade-p-2">病情危重，随时可能发生病情变化需要进行监护、抢救的患者；</p>
+				<p class="Grade-group-p Grade-p-3">各种复杂或大手术后、严重创伤或大面积烧伤的患者。</p>
+			</div>
+		</li>
+		<li class="Grade-group-li" onclick="closeTaskLevel(this);">
+			<div class="Grade-group">
+				<label class="Grade-title">等级：</label>
+				<div class="Grade-name Grade-name-1">一级</div>
+			</div>
+			<div class="Grade-group-Basis">
+				<label class="Grade-title">依据：</label>
+			</div>
+			<div class="Grade-group-detalis">
+				<p class="Grade-group-p Grade-p-1">病情危重，随时可能发生变化需进行抢救的患者；</p>
+				<p class="Grade-group-p Grade-p-2">严重创伤，使用呼吸机辅助呼吸，并需严密监护生命体征的患者；</p>
+				<p class="Grade-group-p Grade-p-3">各种复杂或大手术后的患者；</p>
+				<p class="Grade-group-p Grade-p-4">其他有生命危险需严密监护生命体征的患者等（气切、胃管、尿管、呼吸机、透析、营养泵、伤口引流）。</p>
+			</div>
+		</li>
+		<li class="Grade-group-li" onclick="closeTaskLevel(this);">
+			<div class="Grade-group">
+				<label class="Grade-title">等级：</label>
+				<div class="Grade-name Grade-name-2">二级</div>
+			</div>
+			<div class="Grade-group-Basis">
+				<label class="Grade-title">依据：</label>
+			</div>
+			<div class="Grade-group-detalis">
+				<p class="Grade-group-p Grade-p-1">病情趋向稳定的重症患者：手术后或治疗期间需要严格卧床的患者；</p>
+				<p class="Grade-group-p Grade-p-2">生活完全不能自理且病情不稳定的患者；</p>
+				<p class="Grade-group-p Grade-p-3">生活部分自理，病情随时发生变化的患者等（气切、胃管、尿管）。</p>
+			</div>
+		</li>
+		<li class="Grade-group-li" onclick="closeTaskLevel(this);">
+			<div class="Grade-group">
+				<label class="Grade-title">等级：</label>
+				<div class="Grade-name Grade-name-3">三级</div>
+			</div>
+			<div class="Grade-group-Basis">
+				<label class="Grade-title">依据：</label>
+			</div>
+			<div class="Grade-group-detalis">
+				<p class="Grade-group-p Grade-p-1">生活基本自理且病情稳定的患者；</p>
+				<p class="Grade-group-p Grade-p-2">生活基本自理且处于康复期的患者等。</p>
+			</div>
+		</li>
+	</ul>
+</div>
+
+<!--提示信息-->
+<div class="submitMessage" id="submitMessage"></div>
+
+<!--请输入位置及床号-->
+<div class="PositionBedNum" id="PositionBedNum">
+	<input type="text" class="PositionInput" id="PositionInput" placeholder="请输入位置及床号">
+	<button type="button" class="PositionBtn" onclick="PositionInfoValue();">确定</button>
+</div>
+
+</body>
+
+<script type="text/javascript">
+
+    //添加方法
+    function setTask(){
+
+        var workname = $("#workname").val();
+        var phone = $("#phone").val();
+        var age = $("#age").val();
+        var sex = $("#sex").val();
+        var position = $("#search-input").val();
+        var level = $("#level").val();
+        var discribe = $("#discribe").val();
+
+        if("" == workname){
+            $("#submitMessage").text("请输入您的姓名!");
+            $("#submitMessage").fadeIn(1000);
+            setTimeout("fadeout()",1800);
+            return;
+		}else if("" == phone || phone.length != 11){
+            $("#submitMessage").text("请输入正确的电话号码!");
+            $("#submitMessage").fadeIn(1000);
+            setTimeout("fadeout()",1800);
+            return;
+		}else if("" == age){
+            $("#submitMessage").text("请输入您的年龄!");
+            $("#submitMessage").fadeIn(1000);
+            setTimeout("fadeout()",1800);
+            return;
+		}else if("" == sex){
+            $("#submitMessage").text("请选择您的性别!");
+            $("#submitMessage").fadeIn(1000);
+            setTimeout("fadeout()",1800);
+            return;
+		}else if("" == position) {
+            $("#submitMessage").text("请输入您的位置!");
+            $("#submitMessage").fadeIn(1000);
+            setTimeout("fadeout()",1800);
+            return;
+		}else if("" == level){
+            $("#submitMessage").text("请选择您的护理等级!");
+            $("#submitMessage").fadeIn(1000);
+            setTimeout("fadeout()",1800);
+            return;
+		}else if("" == discribe) {
+            $("#submitMessage").text("请输入您的任务描述!");
+            $("#submitMessage").fadeIn(1000);
+            setTimeout("fadeout()",1800);
+            return;
+		}else {
+
+            $("#submitMessage").text("提交成功!");
+            $("#submitMessage").fadeIn(1000);
+            setTimeout("fadeout()",1800);
+            setCookie("workname",$("#workname").val());
+            setCookie("phone",$("#phone").val());
+            showHtml(url+"release/setTaskByInfo",$("#taskform").serializeJson());
+
+			$("#age").val("");
+			$("#sex").val(1);
+            $("#search-input").val("");
+            $("#level").val("");
+            $("#discribe").val("");
+		}
+
+    }
+    //关闭提示信息
+    function fadeout(){
+        $("#submitMessage").fadeOut(1000);
+    }
+
+    $(function(){
+        $("#workname").val(getCookie("workname"));
+        $("#phone").val(getCookie("phone"));
+    })
+
+    //存cookies
+    function setCookie(name,value){
+        var Days = 30;
+        var exp = new Date();
+        exp.setTime(exp.getTime() + Days*24*60*60*1000);
+        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+    }
+
+
+    //读取cookies
+    function getCookie(name){
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)"); //正则匹配
+        if(arr=document.cookie.match(reg)){
+            return unescape(arr[2]);
+        }
+        else{
+            return null;
+        }
+    }
+
+
+    //删除cookies
+    function delCookie(name){
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval=getCookie(name);
+        if(cval!=null){
+            document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+        }
+    }
+
+
+    //判断是否为微信浏览器
+    $(function () {
+        var ua = window.navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+            wxTrue=true;
+            $("header").remove();
+            $(".container-body").css("top","0rem");
+        }else{
+            wxTrue=false;
+            $(".container-top").show();
+        }
+    });
+
+
+    //开启护理等级
+	function showTaskLevel() {
+
+        $("#level").blur();
+	    $(".task-model").fadeIn(1000);
+        $("#level").val("");
+	}
+
+	//关闭护理等级
+	function closeTaskLevel(element) {
+        $(".task-model").fadeOut(1000);
+        var textLevel = $(element).find(".Grade-name").text();
+        $("#level").val(textLevel);
+	}
+	var data;
+    $(function(){
+        var result=showHtml(url + "release/selectPositionAll","");
+        if(result!=null){
+            data=result.positionList;
+        }
+    })
+
+    $("#search-input").bind('input propertychange',function(){
+        if($(this).val()==null||$(this).val()==""){
+            $("#search-ul").empty();
+            $("#search-ul").css({"height":"0"});
+        }else{
+            findPosition($(this).val());
+            SetMenuHeight();
+        }
+    })
+    function findPosition(value){
+        var findResult=new Array();
+        for(var p in data){
+            if((data[p].position).indexOf(value)!=-1){
+                if(data[p].position!=value){
+                    findResult.push(data[p]);
+                }
+            }
+        }
+        createMenu(findResult);
+    }
+
+    //设置下拉菜单高度
+    function SetMenuHeight() {
+        $("#search-ul").css({"height":"auto"});
+        var height = $("#search-ul").height();
+        if(height > 250){
+            $("#search-ul").css({"height":"250","overflow-y": "auto"});
+        }else if($("#search-input").val().length==0){
+            $("#search-ul").children("li").remove();
+            $("#search-ul").css({"height":"0"});
+        }
+    }
+    //时时创建下拉菜单
+    function createMenu(findResult) {
+        $("#search-ul").empty();
+        //创建下拉菜单li
+        if(findResult.length>0){
+            var html = "";
+            for(var p in findResult){
+                html += '<li class="search-li" onclick="inputChange(' + JSON.stringify(findResult[p]).replace(/"/g, '&quot;') + ')">'+findResult[p].position+'</li>';
+            }
+            $("#search-ul").append(html);
+        }
+    }
+    //给input赋值且监听input
+    function inputChange(value){
+
+        $("#PositionInput").val("");
+        $("#PositionBedNum").fadeIn(1000);
+        $("#search-input").val(value.position);
+        $("#search-input").trigger('propertychange');
+    }
+
+    //点击确定给位置赋值
+	function PositionInfoValue() {
+
+        $("#search-input").val($("#search-input").val()+$("#PositionInput").val());
+        $("#search-input").trigger('propertychange');
+        $("#PositionBedNum").fadeOut(1000);
+	}
+
+
+	//姓名只能输入中文,电话、年龄只能输入数字
+    function KeyLeaveing(idName){
+        var inputCode = $("#"+idName).val();
+        var regulars = "";
+        //姓名(只能输入中文)
+        if(idName == "workname"){
+            //regulars = /[^\u4E00-\u9FA5]/g;//只能输入中文
+            //regulars = /[^(A-Za-z)+$]/g;//只能输入字母
+            regulars =  /[^\a-zA-Z\u4E00-\u9FA5]/g;//只能输入中文和字母
+            //电话、年龄(只能输入数字)
+        }else if(idName == "phone" || idName == "age"){
+            regulars = /[^\d]/g;
+        }
+        $("#"+idName).val(inputCode.replace(regulars,""));
+    }
+	$("#age").bind("input propertychange",function(){
+        bin("age");
+	})
+    $("#phone").bind("input propertychange",function(){
+        bin("phone");
+    })
+	function bin(id){
+        var regulars = /[^\d]/g;
+        if(regulars.test($("#"+id).val())){
+            $("#"+id).val("");
+        }
+	}
+</script>
+</html>

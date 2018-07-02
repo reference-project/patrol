@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slk.workstask.mapper.Wt_content.WtContentMapper">
+    <resultMap id="BaseResultMap" type="com.slk.workstask.model.Wt_content.WtContent">
+        <id column="id" property="id"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="sort" property="sort"/>
+        <result column="level" property="level"/>
+        <result column="name" property="name"/>
+        <result column="score" property="score"/>
+        <result column="isFlag" property="isFlag"/>
+        <result column="createtime" property="createtime"/>
+        <result column="createuser" property="createuser"/>
+    </resultMap>
+    <select id="selectContent" resultMap="BaseResultMap">
+        SELECT * FROM wt_content ORDER BY sort ASC
+    </select>
+    <select id="selectContentByParentId" resultMap="BaseResultMap">
+        SELECT * FROM wt_content WHERE parentid=#{id} ORDER BY sort ASC
+    </select>
+    <update id="updateContent">
+        UPDATE wt_content
+        <set>
+            <if test="sort!=null and sort!=''">
+                sort=#{sort},
+            </if>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="score!=null and score!=''">
+                score=#{score},
+            </if>
+            createtime=NOW()
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <insert id="insertContent">
+        INSERT INTO wt_content(parent_id,sort,level,name,score,createtime)
+                VALUES (#{parentId},#{sort},#{level},#{name},#{score},NOW())
+    </insert>
+</mapper>

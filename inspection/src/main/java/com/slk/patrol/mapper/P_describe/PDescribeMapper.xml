@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slk.patrol.mapper.P_describe.PDescribeMapper">
+    <select id="getDescribeList" resultType="com.slk.patrol.model.P_describe.PDescribeCustom">
+        SELECT d.*,type.`name` typeName FROM p_describe d
+        LEFT JOIN p_patroltype type ON type.id = d.PatrolType_ID
+        ORDER BY d.PatrolType_ID
+    </select>
+
+
+    <select id="getDescribeByTypeID" parameterType="java.lang.Integer" resultType="com.slk.patrol.model.P_describe.PDescribe">
+        SELECT * FROM p_describe WHERE PatrolType_ID = #{value}
+    </select>
+
+</mapper>

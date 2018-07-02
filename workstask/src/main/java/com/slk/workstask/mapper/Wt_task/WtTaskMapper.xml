@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slk.workstask.mapper.Wt_task.WtTaskMapper">
+
+    <select id="selectTaskAll" parameterType="java.lang.Integer" resultType="com.slk.workstask.model.Wt_task.WtTask">
+      SELECT * FROM wt_task WHERE type = #{value} ORDER BY createtime DESC
+    </select>
+    <select id="selectTaskByWorkNumber" resultType="com.slk.workstask.model.Wt_task.WtTaskCustom">
+        SELECT * FROM wt_task WHERE taskcode=#{taskcode} limit 1
+    </select>
+</mapper>

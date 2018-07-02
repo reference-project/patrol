@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>满意度调查</title>
+
+
+	<link href="./../../statics/css/base.css" rel="stylesheet"/>
+	<link href="./../../statics/css/mui.min.css" rel="stylesheet"/>
+	<link href="./../../statics/css/satisfyInvestigate.css" rel="stylesheet"/>
+
+	<script src="./../../statics/js/jquery-3.2.1.js"></script>
+	<script src="./../../statics/js/mui.min.js"></script>
+	<script src="./../../statics/js/public.js"></script>
+	<script src="./../../statics/js/check.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+</head>
+<body>
+
+	<!--操作成功提示-->
+	<div class="submitMessage" id="submitMessage"></div>
+	
+	<div class="container">
+		<div class="top-bar"></div>
+		<header class="container-top">
+			<div class="mui-pull-left">
+				<span class="mui-icon icon-back" onclick="javascript :history.back(-1);"></span>
+			</div>
+			满意度调查
+		</header>
+		<div class="container-body-5">
+
+			<!--背景图-->
+			<div class="satisfy-bg">
+				<i class="icon-satisfy-bg"></i>
+			</div>
+
+			<div class="satisfy-choose">
+
+				<div class="satisfy-choose-top">
+					<span class="satisfy-choose-1">0</span>
+					<div class="satisfy-choose-2">
+						<span class="questHead">1</span>
+						<span class="">/</span>
+						<span class="questFoot"></span>
+					</div>
+					<span class="satisfy-choose-3 questFoot"></span>
+
+					<!--进度条-->
+					<p id="demo5" class="mui-progressbar mui-progressbar-warning"><span></span></p>
+				</div>
+
+				<!--选项-->
+				<div class="select-option" id="select-option">
+					<!--<div class="select-option-title">1.您所在的项目部为?</div>-->
+
+						<!--<li class="select-option-group">
+							<div class="select-option-row">
+								<i class="option-active"></i>
+								<label class="satisfy-label">A.天津市天津医院</label>
+								<input name="role" value="天津市天津医院" type="radio" class="select-option-input">
+							</div>
+						</li>-->
+						<!--<li class="select-option-group">-->
+							<!--<div class="select-option-row">-->
+								<!--<i class=""></i>-->
+								<!--<label class="satisfy-label">B.天津医科大学总医院</label>-->
+								<!--<input name="role" value="天津医科大学总医院" type="radio" class="select-option-input">-->
+							<!--</div>-->
+						<!--</li>-->
+						<!--<li class="select-option-group">-->
+							<!--<div class="select-option-row">-->
+								<!--<i class=""></i>-->
+								<!--<label class="satisfy-label">C.天津市天和医院</label>-->
+								<!--<input name="role" value="天津市天和医院"  type="radio" class="select-option-input">-->
+							<!--</div>-->
+						<!--</li>-->
+						<!--<li class="select-option-group">-->
+							<!--<div class="select-option-row">-->
+								<!--<i class=""></i>-->
+								<!--<label class="satisfy-label">D.天津市中心妇产科医院</label>-->
+								<!--<input name="role" value="天津市中心妇产科医院" type="radio" class="select-option-input">-->
+							<!--</div>-->
+						<!--</li>-->
+						<!--<li class="select-option-group">-->
+							<!--<div class="select-option-row">-->
+								<!--<i class=""></i>-->
+								<!--<label class="satisfy-label">E.天津水干疗项目部</label>-->
+								<!--<input name="role" value="天津水干疗项目部" type="radio" class="select-option-input">-->
+							<!--</div>-->
+						<!--</li>-->
+						<!--<li class="select-option-group">-->
+							<!--<div class="select-option-row">-->
+								<!--<i class=""></i>-->
+								<!--<label class="satisfy-label">F.其他</label>-->
+								<!--<input name="role" value="其他" type="radio" class="select-option-input">-->
+							<!--</div>-->
+						<!--</li>-->
+
+				</div>
+
+				<!--底部按钮-->
+				<div class="satisfy-bottom-btn">
+					<button type="button" class="bottom-btn" id="upquestion" hidden>上一题</button>
+					<button type="button" class="bottom-btn bottom-btn-active" id="nextquestion">下一题</button>
+					<button type="button" class="bottom-btn" id="submitquestion" hidden>提交</button>
+				</div>
+
+			</div>
+
+		</div>
+
+
+	</div>
+	<script type="text/javascript">
+        var wxTrue=false;
+        //自适应
+        (function() {
+            var html = document.documentElement;
+            var width = html.getBoundingClientRect().width;
+            html.style.fontSize = width / 15 + 'px';
+            //至于除数15可自行设置
+            //1rem=50;
+        })()
+
+        $(function(){
+
+            var curWwwPath = window.document.location.href;
+            //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+            var pathName = window.document.location.pathname;
+            var pos = curWwwPath.indexOf(pathName);
+            //获取主机地址，如： http://localhost:8083
+            var localhostPaht = curWwwPath.substring(0, pos);
+            //获取带"/"的项目名，如：/uimcardprj
+            var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+            var url = localhostPaht+projectName;
+            if(url.indexOf("/code")==-1){
+                url+="/code";
+            }
+
+            //判断是否为微信浏览器
+            var ua = window.navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+                wxTrue=true;
+                $("header").remove();
+                $(".container-body-5").css("top","0rem");
+            }else{
+                wxTrue=false;
+                $(".container-top").show();
+            }
+        })
+
+
+		//数据初始化
+		var data=null;
+        var questionCount=0;
+		$(function(){
+		    var result=showHtml(url + "phone/Content/selectContent","");
+			if(result!=null){
+                data= result.contentList;
+			    var title_o="";
+			    var option_o="";
+			    for(var p=0; p<data.length; p++){
+                    if(data[p].parentId==81){
+                        questionCount+=1;
+                        title_o += '<div class="question">' +
+							'<div class="select-option-title">'+data[p].name+'</div>';
+                        title_o+= fastMenu(data[p]);
+                        title_o+='</div>'
+                    }
+				}
+			}
+			$(".questFoot").text(questionCount);
+			$("#select-option").prepend(title_o);
+			question(1);
+		})
+
+		function fastMenu(resource){
+            var option_o='<ul class="select-option-list">';
+            for(var p in data){
+                if(data[p].parentId==resource.id){
+                    option_o += '<li class="select-option-group">' +
+										'<div class="select-option-row">' +
+										'<i class=""></i>' +
+										'<label class="satisfy-label">'+data[p].name+'</label>' +
+										'<input name="score'+resource.id+'"  type="radio" data-parentid="'+resource.id+'" data-parentname="'+resource.name+'" data-score="'+data[p].score+'" value="'+data[p].name+'" class="select-option-input">' +
+									'</div>' +
+								'</li>';
+                }
+            }
+            option_o+='</ul>';
+			return option_o;
+		}
+
+
+		//提交
+		$("#submitquestion").click(function(){
+            var f=$("#select-option").find(".question:nth-child("+defaultIndex+")").find("input").attr("name");
+            var val=$('input:radio[name="'+f+'"]:checked').val();
+            if(val==null||val==''){
+                $("#submitMessage").text("尚未选择对我们的评价");
+                $("#submitMessage").fadeIn(1000);
+                setTimeout("fadeout()",1800);
+                return false;
+            }
+            var arrList = new Array();
+            /*var hospital=$("input[name='hospital']:checked").val();
+            if(hospital=='其他'){
+                hospital=$("#hospital").val();
+            }*/
+
+           /* var role=$("input[name='role']:checked").val();
+            if(role=='其他'){
+                role=$("#role").val();
+			}
+*/
+			//评分
+            var sorceData=new Array();
+            $('input:radio').each(function(){
+				var nameValue=$(this).attr("name");
+                if(nameValue.indexOf("score")>-1){
+                    sorceData.push(nameValue);
+				}
+			})
+            sorceData=unique(sorceData);
+            for(var p in sorceData){
+                var scoreObject=new Object();
+                	scoreObject.score=$("input[name='"+sorceData[p]+"']:checked").data("score");
+                	scoreObject.name=$("input[name='"+sorceData[p]+"']:checked").val();
+                    scoreObject.parentName=$("input[name='"+sorceData[p]+"']:checked").data("parentname");
+                	scoreObject.parentId=$("input[name='"+sorceData[p]+"']:checked").data("parentid");
+                    arrList.push(scoreObject);
+
+               /* scoreObject.name=$("input[name='"+sorceData[p]+"']:checked").val();
+                scoreObject.parentName=$("input[name='"+sorceData[p]+"']").data("parentname");
+                scoreObject.score=$("input[name='"+sorceData[p]+"']").data("score");*/
+
+			}
+
+
+
+			/*var existing_problems="";
+            $("input[name='existing_problems']:checked").each(function(){
+                existing_problems+= $(this).val()+",";
+            });*/
+		/*	var suggestion=$("#suggestion").val();
+            var file = document.getElementById("file").files[0];*/
+            var formData = new FormData();
+           /* if (file!=null) {
+                //console.log(file);
+                formData.append("file", file);
+            }*/
+          /* if(hospital==null||hospital==''){
+               return;
+		   }
+		   if(role==null||role==''){
+               return;
+		   }*/
+           /* formData.append("hospital",hospital);*/
+            /*formData.append("role",role);
+            formData.append("iScore",iScore);*/
+            formData.append("arrList",JSON.stringify(arrList));
+            /*formData.append("suggestion",suggestion);
+            formData.append("existingproblems",existing_problems);*/
+
+
+            /*var result=showHtml(url +"phone/Content/submitContent",formData);
+            if(result!=null&&result.flag){
+				 window.location.href="";
+			}else{
+                checkMessage("提交失败");
+			}*/
+            //console.log(arrList);
+            var result=showHtml(url +"phone/Content/submitContent",formData);
+            if(result!=null&&result.flag){
+                $("#submitMessage").text("感谢您对我们的服务评价");
+                $("#submitMessage").fadeIn(2000,function () {
+                   window.location.href="./../../code/index.html";
+                });
+            }else{
+                checkMessage("提交失败");
+            }
+		})
+		//去除重复
+        function unique(arr) {
+            var result = [], hash = {};
+            for (var i = 0, elem; (elem = arr[i]) != null; i++) {
+                if (!hash[elem]) {
+                    result.push(elem);
+                    hash[elem] = true;
+                }
+            }
+            return result;
+		}
+
+
+		var defaultIndex=1;
+		//点击上下题按钮
+		$(".satisfy-bottom-btn button").click(function () {
+            $(".satisfy-bottom-btn button").removeClass("bottom-btn-active");
+            $(this).addClass("bottom-btn-active");
+		});
+
+		//上一题
+		$("#upquestion").click(function(){
+            defaultIndex-=1;
+            $("#submitquestion").hide();
+		    if(defaultIndex!=1){
+                $("#upquestion").show();
+                $("#nextquestion").show();
+
+			}else{
+                $("#nextquestion").show();
+                $("#upquestion").hide();
+			}
+            $(".questHead").text(defaultIndex);
+            question(defaultIndex);
+        })
+		function fadeout(){
+            $("#submitMessage").fadeOut(1000);
+		}
+		//下一题
+        $("#nextquestion").click(function(){
+            var f=$("#select-option").find(".question:nth-child("+defaultIndex+")").find("input").attr("name");
+            var val=$('input:radio[name="'+f+'"]:checked').val();
+            if(val==null||val==''){
+                $("#submitMessage").text("尚未选择对我们的评价");
+                $("#submitMessage").fadeIn(1000);
+                setTimeout("fadeout()",1800);
+                return false;
+            }
+            defaultIndex+=1;
+			if(defaultIndex!=questionCount){
+                $("#upquestion").show();
+                $("#nextquestion").show();
+			}else{
+				$("#upquestion").show();
+				$("#submitquestion").show();
+				$("#nextquestion").hide();
+			}
+            $(".questHead").text(defaultIndex);
+            question(defaultIndex);
+        })
+
+		//进度条
+		function question(index){
+            $("#select-option").find(".question:nth-child("+defaultIndex+")").show();
+            $("#select-option").find(".question:nth-child("+defaultIndex+")").siblings().hide();
+            mui("#demo5").progressbar({progress:100/questionCount*defaultIndex}).show();
+            showLi($("#select-option").find(".question:nth-child("+defaultIndex+")"));
+		}
+        //点击给当前选中加上√
+		function showLi(element){
+			$(element).find("li").click(function(){
+                $(this).siblings().find("i").removeClass("option-active");
+			    $(this).find("i").addClass("option-active");
+
+			})
+		}
+
+
+	</script>
+</body>
+
+
+</html>

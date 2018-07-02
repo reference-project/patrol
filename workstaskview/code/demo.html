@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>二维码扫描效果</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link href="./../statics/css/style.css" rel="stylesheet" />
+</head>
+<body>
+<div class="box">
+	<div id="finger">
+		<div id="finger_box">
+			<img id="zhiwen" src="./../statics/img/zhiwen.png" alt="" />
+			<img id="line" src="./../statics/img/line.png" alt="" />
+			<p id="info"></p>
+		</div>
+
+		<!--二维码盒子-->
+		<div class="boxImg" hidden>
+			<img onclick="getUrl(this,'img-url')" id="GetImgUrl" src="./../statics/img/12345.png"/>
+			<p class="url-box" id="urlBox"></p>
+		</div>
+
+	</div>
+</div>
+<script src="./../statics/js/jquery-3.2.1.js"></script>
+<script src="./../statics/js/llqrcode.js" type="text/javascript" charset="utf-8"></script>
+<script src="./../statics/js/analyticCode.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var $info=$('#info'),$zhiwen=$('#zhiwen'),$line=$('#line');
+    $(function(){
+        $zhiwen.click(function(){
+
+            $info.stop().text('扫描中...');
+            $line.stop().show();
+            document.querySelector('#line').addEventListener('webkitAnimationEnd', function () {
+                $info.text('扫描完成');
+                $line.hide();
+                setTimeout(function(){
+                    $info.text('');
+                    //callback
+                    $("#GetImgUrl").click();
+                },400);
+            },false);
+        });
+    });
+
+
+    //解析二维码
+    function getUrl(e,param){
+        analyticCode.getUrl(param,e,function(url1){
+            e.nextElementSibling.innerHTML = url1;
+
+            alert(url1);
+            //跳转的链接
+            //window.location.href = url1;
+        });
+    }
+
+
+</script>
+</body>
+</html>

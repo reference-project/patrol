@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Patrol.iml" filepath="$PROJECT_DIR$/Patrol.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inspection/inspection.iml" filepath="$PROJECT_DIR$/inspection/inspection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/usermanage/usermanage.iml" filepath="$PROJECT_DIR$/usermanage/usermanage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/workstask/workstask.iml" filepath="$PROJECT_DIR$/workstask/workstask.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zuul/zuul.iml" filepath="$PROJECT_DIR$/zuul/zuul.iml" />
+    </modules>
+  </component>
+</project>

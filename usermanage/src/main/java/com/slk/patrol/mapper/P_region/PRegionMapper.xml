@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slk.patrol.mapper.P_region.PRegionMapper">
+    <resultMap id="BaseResultMap" type="com.slk.patrol.model.P_region.PRegion">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parent_id" property="parent_id"/>
+        <result column="level" property="level"/>
+        <result column="modify_Date" property="modify_date"/>
+        <result column="drive_x" property="drive_x"/>
+        <result column="drive_y" property="drive_y"/>
+        <result column="drive_id" property="drive_id"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        name,parent_id,level,drive_x,drive_y,drive_id
+    </sql>
+    <!-- 查询全部下级区域-->
+    <select id="selectAllRegion" resultMap="BaseResultMap">
+        SELECT * FROM p_region WHERE parent_id!=0 ORDER BY id
+    </select>
+
+    <!-- 查询全部区域 按id排序-->
+    <select id="selectAllRegionByParentId" resultMap="BaseResultMap">
+        SELECT * FROM p_region WHERE parent_id=#{parent_id} ORDER BY id
+    </select>
+
+
+    <select id="getRegionById" resultMap="BaseResultMap">
+        SELECT * FROM p_region WHERE id=#{id}
+    </select>
+
+
+    <!-- 新增区域 -->
+    <insert id="addRegion">
+        INSERT INTO p_region(
+          <include refid="Base_Column_List"/>
+        )VALUES (
+        #{name},
+        #{parent_id},
+        #{level},
+        #{drive_x},
+        #{drive_y},
+        #{drive_id}
+        )
+    </insert>
+
+    <!-- 删除区域 -->
+    <delete id="deleteRegion">
+        DELETE FROM p_region WHERE id=#{id}
+    </delete>
+
+    <!-- 修改区域信息 -->
+    <update id="updateRegion">
+        UPDATE p_region
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="parent_id != null">
+                Parent_ID=#{parent_id},
+            </if>
+            <if test="level != null">
+                level=#{level},
+            </if>
+            <if test="drive_x != null">
+                drive_X=#{drive_x},
+            </if>
+            <if test="drive_y != null">
+                drive_Y=#{drive_y},
+            </if>
+            <if test="drive_id != null">
+                drive_id=#{drive_id},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+</mapper>

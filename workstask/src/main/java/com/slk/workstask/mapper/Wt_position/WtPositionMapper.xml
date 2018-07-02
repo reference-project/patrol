@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slk.workstask.mapper.Wt_position.WtPositionMapper">
+    <resultMap id="BaseMap" type="com.slk.workstask.model.Wt_position.WtPosition">
+        <id column="id" property="id"/>
+        <result column="position" property="position"/>
+        <result column="createdate" property="createdate"/>
+        <result column="createuser" property="createuser"/>
+    </resultMap>
+
+    <insert id="insertPosition">
+        INSERT INTO wt_position
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="position!=null">
+                position,
+            </if>
+            <if test="createdate!=null">
+                createdate,
+            </if>
+            <if test="createuser!=null">
+                createuser,
+            </if>
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            <if test="position!=null">
+                #{position},
+            </if>
+            <if test="createdate!=null">
+                #{createdate},
+            </if>
+            <if test="createuser!=null">
+                #{createuser},
+            </if>
+        </trim>
+    </insert>
+    <update id="updatePosition">
+          UPDATE wt_position
+          <set>
+              <if test="position!=null">
+                  position=#{position},
+              </if>
+              <if test="createdate!=null">
+                  createdate=#{createdate},
+              </if>
+              <if test="createuser!=null">
+                  createuser=#{createuser},
+              </if>
+          </set>
+          WHERE id=#{id}
+    </update>
+</mapper>

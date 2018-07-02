@@ -1,0 +1,122 @@
+<!doctype html>
+	<!--suppress ALL -->
+<head>
+		<title>任务发布管理</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<link rel="import" href="../../statics/include-header.html">
+		<link rel="import" href="../../statics/include-JS.html">
+
+	</head>
+	<body>
+	<abbr>
+
+		<link rel="stylesheet" href="./statics/css/releaseList.css" />
+
+		<div id="body1">
+			<br/>
+			<div class="row animated fadeInRight">
+				<div class="col-sm-12">
+					<div class="panel">
+						<div class="panel-content">
+							<div class="table-responsive">
+								<table id="sqz" class="data-table table table-striped nowrap table-hover" cellspacing="0" width="100%">
+									<thead>
+									<th name="id">ID</th>
+									<th name="name">姓名</th>
+									<th name="phone">电话</th>
+									<th name="sex">性别</th>
+									<th name="age">年龄</th>
+									<th name="position">位置</th>
+									<th name="nursinglevel" >护理等级</th>
+									<th name="demanddate">需求时间</th>
+									<th name="createdate">创建时间</th>
+									<th name="task">任务内容</th>
+									<th name="cz">状态</th>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+			<script type="text/javascript">
+
+                $(function() {
+                    initDatas();
+                });
+                function initDatas() {
+                    var result=showHtml(url + "wtrelease/selectReleaseAll","");
+                    console.log(result);
+                    if(null!=result){
+                        for(var p in result.releaseList){
+
+                            var sex=result.releaseList[p].sex;
+                            if(sex==1){
+                                result.releaseList[p].sex='男';
+							}else{
+                                result.releaseList[p].sex='女';
+							}
+
+							//状态
+							var states = result.releaseList[p].state;
+                            if(states == 0){
+                                var html='<div class="tab-menu">'+
+                                    '<span class="span1"></span>'+
+                                    '<ul>'+
+                                    '<li class="active" onclick="stateEnable(this);" id="'+result.releaseList[p].id+'">启用</li>'+
+                                    '<li onclick="stateStop(this);" id="'+result.releaseList[p].id+'">停用</li>'+
+                                    '</ul>'+
+                                    '</div>';
+							}else if(states == 1) {
+                                var html='<div class="tab-menu">'+
+                                    '<span class="span2"></span>'+
+                                    '<ul>'+
+                                    '<li onclick="stateEnable(this);" id="'+result.releaseList[p].id+'">启用</li>'+
+                                    '<li class="active" onclick="stateStop(this);" id="'+result.releaseList[p].id+'">停用</li>'+
+                                    '</ul>'+
+                                    '</div>';
+							}
+
+                            result.releaseList[p].task='<a class="InfoFinds" title="'+result.releaseList[p].task+'">'+result.releaseList[p].task+'</a>';
+
+                            result.releaseList[p].cz=html;
+                        }
+                        ShowDataTable("sqz",result.releaseList ,"id");
+                    }
+                }
+
+                //状态修改提交
+                function updateRealse(id,state){
+					console.log(id,state);
+                    var value=new FormData();
+                    value.append("id",id);
+                    value.append("state",state);
+                    showHtml(url + "wtrelease/insertAndUpdateRelease",value);
+				}
+
+				//点击启用
+				function stateEnable(element){
+                    $(element).parent("ul").prev("span").css("left","0px");
+                    $(element).next("li").css("color","#0b8fff")
+                    $(element).css("color","white");
+                    var ids = $(element).attr("id");
+                    updateRealse(ids,0);
+				}
+
+                //点击停用
+                function stateStop(element){
+                    $(element).parent("ul").prev("span").css("left","50px");
+                    $(element).prev("li").css("color","#0b8fff")
+                    $(element).css("color","white");
+                    var ids = $(element).attr("id");
+                    updateRealse(ids,1);
+                }
+
+			</script>
+	</abbr>
+	</body>
+</html>

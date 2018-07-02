@@ -1,0 +1,124 @@
+
+@font-face {
+	font-family: "workstaskFont";
+	src: url('./../fonts/PingFang Regular.ttf');
+}
+/*设置字体*/
+body,html,p,span,h1,h2,h3,h4,h5,h6,button,input,a,select,textarea{
+	font-family: workstaskFont;
+}
+
+/*公共页面布局------------*/
+.container {
+	width: 15rem;
+	height: 26.68rem;
+	background-color: #f7f7f7;
+}
+/*头部*/
+.container-top {
+	position: fixed;
+	top: 0rem;
+	left: 0rem;
+	z-index: 666;
+	text-align: center;
+	width: 100%;
+	height: 1.78rem;
+	line-height: 1.78rem;
+	padding: 0 0.3rem;
+	font-size: 0.72rem;
+	font-weight: 700;
+	color: #333333;
+}
+.icon-back {
+	position: absolute;
+	top: 0.4rem;
+	left: 1rem;
+	background: url(../../statics/img/icon-back-black.png) no-repeat;
+	width: 0.52rem;
+	height: 0.88rem;
+	background-size: 100% 100%;
+}
+.top-title-a {
+	position: absolute;
+	top: 0rem;
+	left: 1.38rem;
+	font-weight: 400;
+	font-size: 0.6rem;
+	color: #ffffff;
+}
+/*身体*/
+.container-body {
+	position: fixed;
+	top: 1.76rem;
+	left: 0rem;
+	right: 0rem;
+	bottom: 0rem;
+	background: url("./../../statics/img/introduction-bg.png") no-repeat;
+	width: 15rem;
+	background-size: 100% 100%;
+	overflow-y: auto;
+}
+.text-introduce {
+	padding: 0rem 0.76rem 0rem 1.5rem;
+	padding-top: 1rem;
+}
+.text-introduce-details {
+	position: relative;
+	font-size: 0.7rem;
+	color: #333333;
+	font-weight: 700;
+	line-height: 1rem;
+	margin-bottom: 0.2rem;
+	text-align: justify;
+	text-justify: inter-ideograph;
+}
+.text-introduce-details:before {
+	position: absolute;
+	top: 0rem;
+	left: -0.9rem;
+	font-size: 0.7rem;
+	color: #333333;
+	font-weight: 700;
+}
+.index-1:before {
+	content: "1.";
+}
+.index-2:before {
+	content: "2.";
+}
+.index-3:before {
+	content: "3.";
+}
+.index-4:before {
+	content: "4.";
+}
+.index-5:before {
+	content: "5.";
+}
+.index-6:before {
+	content: "6.";
+}
+.index-7:before {
+	content: "7.";
+}
+.index-8:before {
+	content: "8.";
+}
+.text-explore {
+	padding: 0rem 1.4rem 0rem 1.5rem;
+}
+.text-introduce-explore {
+	text-align: justify;
+	text-justify: inter-ideograph;
+	text-indent: 1.3rem;
+	font-size: 0.7rem;
+	color: #333333;
+	font-weight: 700;
+}
+/*低部按钮*/
+.find-menu-btn {
+	margin-top: 0.8rem;
+	width: 12.4rem;
+	height: 1.96rem;
+	margin-bottom: 0.5rem;
+}

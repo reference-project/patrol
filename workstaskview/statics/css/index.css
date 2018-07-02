@@ -1,0 +1,155 @@
+
+/*公共页面布局------------*/
+.container {
+	width: 100%;
+	height: 26.68rem;
+	background-color: #eff3f2;
+}
+/*头部*/
+.container-top {
+	position: fixed;
+	top: 0rem;
+	left: 0rem;
+	z-index: 666;
+	text-align: center;
+	width: 100%;
+	height: 1.78rem;
+	line-height: 1.78rem;
+	padding: 0 0.3rem;
+	font-size: 0.72rem;
+	font-weight: 700;
+	color: #333333;
+	background-color: #eff3f2;
+}
+.icon-back-black {
+	position: absolute;
+	top: 0.4rem;
+	left: 0.32rem;
+	background: url(./../../statics/img/icon-back-black.png) no-repeat;
+	width: 0.52rem;
+	height: 0.88rem;
+	background-size: 100% 100%;
+}
+.top-title-a {
+	position: absolute;
+	top: 0rem;
+	left: 1.38rem;
+	font-weight: 400;
+	font-size: 0.6rem;
+	color: #333333;
+}
+/*身体*/
+.container-body {
+	position: fixed;
+	top: 1.76rem;
+	left: 0rem;
+	right: 0rem;
+	bottom: 0rem;
+	overflow-y: auto;
+	background-color: #eff3f2;
+}
+/*轮波图样式*/
+.scroll{
+	width:15rem;
+	height:9.6rem;
+	position:relative;
+	overflow:hidden;
+	background: #eff3f2;
+	border-bottom: 0.1rem solid #eeeeee;
+}
+.scroll img {
+	width: 15rem;
+	height: 8.8rem;
+}
+.scroll .mui-slider .mui-slider-indicator {
+	text-align: right;
+	padding-right: 0.44rem;
+}
+.scroll .mui-indicator {
+	width: 0.32rem;
+	height: 0.32rem;
+	border-radius: 50%;
+	margin: 0;
+	margin-right: 0.12rem;
+}
+/*列表*/
+.mui-group-ul {
+	overflow-y: auto;
+	margin-top: 0.8rem;
+	width: 100%;
+	height: 14.5rem;
+	padding: 0 0.6rem;
+}
+.mui-group-li {
+	position: relative;
+	text-align: center;
+	border-radius: 0.4rem;
+	margin-bottom: 0.8rem;
+	width: 100%;
+	height: 4.7rem;
+	background-size: 100% 100%;
+}
+.mui-group-ul li:last-of-type {
+	margin-bottom: 0rem;
+}
+.mui-group-li-1 {
+	background: url(./../../statics/img/icon-Introduction.png) no-repeat;
+	background-size: 100% 100%;
+}
+.mui-group-li-2 {
+	background: url(./../../statics/img/icon-task.png) no-repeat;
+	background-size: 100% 100%;
+}
+.mui-group-li-3 {
+	background: url(./../../statics/img/icon-statify.png) no-repeat;
+	background-size: 100% 100%;
+}
+.mui-group-li-title {
+	position: absolute;
+	top: 1.5rem;
+	left: 0rem;
+	font-size: 0.88rem;
+	color: #ffffff;
+	width: 100%;
+	height: 0.88rem;
+	letter-spacing: 0.2rem;
+}
+.mui-group-li-content {
+	position: absolute;
+	top: 2.6rem;
+	left: 0rem;
+	font-size: 0.6rem;
+	width: 100%;
+	height: 0.6rem;
+	color: #ffffff;
+	letter-spacing: 0.05rem;
+}
+
+/*联系方式*/
+.contact-info {
+	margin-top: 0.9rem;
+	position: relative;
+	padding-left: 2.8rem;
+}
+.phone-img {
+	position: absolute;
+	top: -0.4rem;
+	left: 0rem;
+	background: url("./../../statics/img/phone-img.png") no-repeat;
+	width: 3.26rem;
+	height: 3.12rem;
+	background-size: 100% 100%;
+}
+.contact-telphone {
+	font-size: 0.6rem;
+	line-height: 0.6rem;
+	color: #333333;
+	margin-bottom: 0.2rem;
+}
+.contact-number {
+	font-size: 0.6rem;
+	line-height: 0.6rem;
+	color: #f12727;
+	font-family: Helvetica;
+	font-style:italic
+}

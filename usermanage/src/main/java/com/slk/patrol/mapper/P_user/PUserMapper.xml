@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slk.patrol.mapper.P_user.PUserMapper">
+    <resultMap id="BaseResultMap" type="com.slk.patrol.model.P_user.PUser">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="passowrd" property="passowrd"/>
+    </resultMap>
+
+    <!-- 查询所有管理员 -->
+    <select id="selectUserAll" resultMap="BaseResultMap">
+        SELECT * FROM p_user ORDER BY id
+    </select>
+    <!-- 通过用户id查询用户信息 -->
+    <select id="selectUserById"  resultMap="BaseResultMap">
+        SELECT * FROM p_user WHERE id=#{id}
+    </select>
+
+    <select id="selectUserByNameAndPass"  resultMap="BaseResultMap">
+        SELECT * FROM p_user WHERE username=#{username} and passowrd=#{password}
+    </select>
+    <!-- 通过用户name查询用户是否存在 -->
+    <select id="selectCountUserByUsername" resultType="java.lang.Integer">
+        SELECT count(*) FROM p_user WHERE username=#{username}
+    </select>
+
+    <insert id="insertUser">
+        INSERT INTO p_user(
+            username,passowrd
+        )VALUES (
+                #{username},#{passowrd}
+        )
+    </insert>
+
+    <update id="updateUser">
+        UPDATE p_user
+        <set>
+            <if test="username!=null">
+                username=#{username},
+            </if>
+            <if test="passowrd!=null">
+                passowrd=#{passowrd},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+
+
+</mapper>

@@ -1,0 +1,217 @@
+<!doctype html>
+	<!--suppress ALL -->
+<head>
+		<title>管理员管理</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<link rel="import" href="../../statics/include-header.html">
+		<link rel="import" href="../../statics/include-JS.html">
+	</head>
+	<body>
+	<abbr>
+		<div id="body1">
+			<button type="button" id="openAddUser" class="btn btn-wide btn-primary" data-toggle="modal" data-target="#md-modal">
+				添加护工
+			</button>
+			<br/>
+			<div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="modal-error-label">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header state modal-danger">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="modal-error-label"><i class="fa fa-warning"></i>删除护工</h4>
+						</div>
+						<div class="modal-body">
+							请您确定要删除此数据吗？
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="delWork()">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade " id="md-modal" tabindex="-1" role="dialog" aria-labelledby="modal-default-label">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header state modal-primary">
+							<h4 class="modal-title" id="modal-default-label">用户信息</h4>
+						</div>
+						<div class="modal-body">
+							<div class="col-md-12">
+								<div class="panel">
+									<div class="panel-content">
+										<div class="row">
+											<div class="col-sm-12">
+												<form id="modifyWork" class="form-horizontal form-stripe">
+													<h6 class="mb-xlg text-center"><b>用户信息</b></h6>
+													<input hidden="hidden" id="id" name="id">
+													<div class="form-group">
+														<label  class="col-sm-2 control-label">工号</label>
+														<div class="col-sm-10">
+															<input type="text" id="worknumber" class="form-control" data-id="notnull" name="worknumber" placeholder="请输入护工工号" autocomplete="off">
+														</div>
+													</div>
+													<div class="form-group">
+														<label  class="col-sm-2 control-label">姓名</label>
+														<div class="col-sm-10">
+															<input type="text" id="workname" class="form-control" data-id="notnull"  name="workname" placeholder="请输入您的姓名" autocomplete="off">
+														</div>
+													</div>
+													<div class="form-group">
+														<label  class="col-sm-2 control-label">手机</label>
+														<div class="col-sm-10">
+															<input type="text" id="phone" data-id="phone" onkeyup="this.value=this.value.replace(/\D/g,'')"  class="form-control" name="phone" placeholder="请输入护工联系方式"
+																   autocomplete="off" maxlength=11>
+														</div>
+													</div>
+													<div class="form-group">
+														<label  class="col-sm-2 control-label">性别</label>
+														<div class="col-sm-10">
+															<select id="sex" name="sex"  class="form-control">
+																<option value="男">男</option>
+																<option value="女">女</option>
+															</select>
+														</div>
+													</div>
+													<div class="form-group">
+														<label  class="col-sm-2 control-label">年龄</label>
+														<div class="col-sm-10">
+															<input type="text" id="age" class="form-control" name="age" onkeyup="this.value=this.value.replace(/\D/g,'')" placeholder="请输入护工年龄" autocomplete="off" maxlength="2">
+														</div>
+													</div>
+													<div class="form-group">
+														<label  class="col-sm-2 control-label">身份证号</label>
+														<div class="col-sm-10">
+															<input type="text" id="idcode" data-id="idcode" onkeyup="this.value=this.value.replace(/[\W]/g,'')"  class="form-control" name="idcode" placeholder="请输入身份证号" autocomplete="off" maxlength=18>
+														</div>
+													</div>
+
+													<div class="form-group">
+														<label  class="col-sm-2 control-label">从业年限</label>
+														<div class="col-sm-10">
+															<input type="text" id="employment" class="form-control" onkeyup="this.value=this.value.replace(/\D/g,'')" name="employment" placeholder="请输入从业年限" autocomplete="off" maxlength=2>
+														</div>
+													</div>
+													<div class="form-group">
+														<label  class="col-sm-2 control-label">擅长专业</label>
+														<div class="col-sm-10">
+															<input type="text" id="speciality" class="form-control" name="speciality" placeholder="请输入所擅长的专业" autocomplete="off">
+														</div>
+													</div>
+													<div class="form-group">
+														<label  class="col-sm-2 control-label">是否经历过培训</label>
+														<div class="col-sm-10">
+															<select id="train" class="form-control" name="train">
+																<option value="0">否</option>
+																<option value="1">是</option>
+															</select>
+														</div>
+													</div>
+													<div class="form-group">
+														<label  class="col-sm-2 control-label">备注</label>
+														<div class="col-sm-10">
+															<textarea  id="remarks" class="form-control" name="remarks"></textarea>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div class="reminder-info"></div>
+							<button onclick="ModifyUser()" type="button" class="btn btn-primary">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row animated fadeInRight">
+				<div class="col-sm-12">
+					<div class="panel">
+						<div class="panel-content">
+							<div class="table-responsive">
+								<table id="sqz" class="data-table table table-striped nowrap table-hover" cellspacing="0" width="100%">
+									<thead>
+									<th name="id">ID</th>
+									<th name="worknumber">工号</th>
+									<th name="workname">姓名</th>
+									<th name="phone">电话号码</th>
+									<th name="sex" >性别</th>
+									<th name="age">年龄</th>
+									<th name="employment">从业年限</th>
+									<th name="speciality">擅长专业</th>
+									<th name="train">是否培训</th>
+									<th name="remarks">备注</th>
+									<th name="cz">状态</th>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+			<script type="text/javascript">
+                var workFid;
+                $(function() {
+                    //初始化数据
+                    initDatas();
+                    //预留若有初始化样式或对JS有一些初始化要求则可写入，如：页面加载时 初始化自动生成一批li div等标签，若无作用可去掉
+                    initJs("modifyWork","md-modal","body1");
+                });
+
+
+                function setdel(fid){
+                    workFid=fid;
+                }
+                //修改用户前操作，如数据渲染，环境准备（清空表单加载效果等）
+                function upUser(user){
+                    $("#modifyWork").clearfrom();
+                    $("#modifyWork").setForm(user);
+                    $("#sex option:selected").val(user.sex);
+                }
+                //添加修改方法- -
+                function ModifyUser(){
+                    var user = $("#modifyWork").serializeJson();
+                    if(check_Form(modifyWork)){
+                        messagePrompt(showHtml(url+"works/ModifyToWorks",user));
+                        showHtmlRight('./code/work/worksList.html');
+					}
+                }
+                //删除方法
+                function delWork(){
+                	messagePrompt(showHtml(url+"works/romveWokrs/"+workFid,""));
+					showHtmlRight('./code/work/worksList.html')
+
+                }
+
+                function initDatas() {
+                    var result=showHtml(url + "works/selectAllWorks","");
+                    if(null!=result){
+                        for(var p in result.worksList){
+                            var html='<button type="button" onclick="upUser(' + JSON.stringify(result.worksList[p]).replace(/"/g, '&quot;') + ')" class="btn btn-wide btn-info" data-toggle="modal" data-target="#md-modal">' +
+                                '修改' +
+                                '</button>&nbsp' +
+                                '<button type="button" onclick="setdel(' + result.worksList[p].id + ')" class="btn btn-wide btn-danger" data-toggle="modal" data-target="#error-modal">' +
+                                '删除' +
+                                '</button>';
+                            result.worksList[p].cz=html;
+                            if(result.worksList[p].train==0){
+                                result.worksList[p].train="未培训"
+							}else{
+                                result.worksList[p].train="已培训"
+							}
+                        }
+                        ShowDataTable("sqz",result.worksList ,"id");
+                    }
+                }
+			</script>
+	</abbr>
+	</body>
+</html>

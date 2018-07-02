@@ -1,0 +1,166 @@
+
+@font-face {
+	font-family: "workstaskFont";
+	src: url('./../fonts/PingFang Regular.ttf');
+}
+/*设置字体*/
+body,html,p,span,h1,h2,h3,h4,h5,h6,button,input,a,select,textarea{
+	font-family: workstaskFont;
+}
+
+/*公共页面布局------------*/
+.container {
+	position: fixed;
+	top: 0rem;
+	left: 0rem;
+	bottom: 0rem;
+	right: 0rem;
+	background-color: #ffffff;
+	width: 15rem;
+	height: 26.68rem;
+}
+/*头部*/
+.container-top {
+	position: fixed;
+	top: 0rem;
+	left: 0rem;
+	z-index: 666;
+	text-align: center;
+	width: 100%;
+	height: 1.78rem;
+	line-height: 1.78rem;
+	font-size: 0.72rem;
+	font-weight: 700;
+	color: #333333;
+	border-bottom: 0.04rem solid #e5e5e5;
+}
+.icon-back {
+	position: absolute;
+	top: 0.4rem;
+	left: 1rem;
+	background: url(../../statics/img/icon-back-black.png) no-repeat;
+	width: 0.52rem;
+	height: 0.88rem;
+	background-size: 100% 100%;
+}
+.top-title-a {
+	position: absolute;
+	top: 0rem;
+	left: 1.38rem;
+	font-weight: 400;
+	font-size: 0.6rem;
+	color: #ffffff;
+}
+.container-top:before {
+	position: absolute;
+	bottom: 0rem;
+	left: 6.4rem;
+	content: "";
+	width: 2.2rem;
+	height: 0.14rem;
+	background-color: #ffcd00;
+}
+/*身体*/
+.container-body {
+	position: fixed;
+	top: 1.76rem;
+	left: 0rem;
+	bottom: 0rem;
+}
+.contract-agree {
+	padding: 1rem 1.3rem;
+}
+.contract-label {
+	font-size: 0.8rem;
+	color: #333333;
+	font-weight: 700;
+}
+.contract-input {
+	width: 11.8rem;
+	height: 1.2rem;
+	border: 0.02rem solid #e5e5e5;
+	border-radius: 0.1rem;
+	font-size: 0.6rem;
+	color: #666666;
+	padding-left: 0.6rem;
+	outline: none;
+}
+/*拍照*/
+.contract-photo {
+	width: 100%;
+}
+.add-picture-ul {
+	position: fixed;
+	top: 7rem;
+	bottom: 3.5rem;
+	left: 0.6rem;
+	right: 0.6rem;
+	overflow-y: auto;
+}
+.add-picture-li {
+	position: relative;
+	float: left;
+	width: 4.1rem;
+	height: 4.8rem;
+	margin-right: 0.75rem;
+	margin-bottom: 0.3rem;
+}
+.add-picture-img {
+	width: 4.1rem;
+	height: 4.8rem;
+}
+.add-picture-ul li:nth-child(3n+3) {
+	margin-right: 0rem;
+}
+.add-picture-li-i {
+	position: absolute;
+	top: 0rem;
+	right: 0rem;
+	z-index: 555;
+	background: url("../img/picture-icon-close.png") no-repeat;
+	width: 0.64rem;
+	height: 0.64rem;
+	background-size: 100% 100%;
+}
+
+
+/*发表*/
+.contract-publish {
+	position: fixed;
+	bottom: 1.2rem;
+	left: 0rem;
+	width: 100%;
+	text-align: center;
+}
+.contract-send {
+	font-size: 0.7rem;
+	color: #000000;
+	width: 10rem;
+	height: 1.4rem;
+	line-height: 1.4rem;
+	text-align: center;
+	border-radius: 0.2rem;
+	background-color: #cccccc;
+	outline: none;
+}
+.send-active {
+	color: #ffffff;
+	background-color: #ffcd00;
+}
+
+/*提交成功提示*/
+.submitMessage {
+	display: none;
+	position: fixed;
+	top: 13rem;
+	left: 3.5rem;
+	z-index:333;
+	font-size: 0.7rem;
+	font-family:FangSong;
+	width: 8rem;
+	line-height: 1.8rem;
+	text-align:center;
+	border-radius: 0.3rem;
+	color: #fb5d52;
+	background: rgba(0,255,255,0.9);
+}

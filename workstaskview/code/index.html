@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>护工任务索引</title>
+
+	<!--<link rel="import" href="./../statics/include_css.html">-->
+	<!--<link rel="import" href="./../statics/include_js.html">-->
+
+	<link href="./../statics/css/mui.min.css" rel="stylesheet"/>
+	<link href="./../statics/css/base.css" rel="stylesheet"/>
+	<link href="./../statics/css/public.css" rel="stylesheet"/>
+	<link href="./../statics/css/index.css" rel="stylesheet"/>
+	<script src="./../statics/js/jquery-3.2.1.js"></script>
+	<script src="./../statics/js/mui.min.js"></script>
+	<script src="./../statics/js/check.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+</head>
+<body>
+
+	<div class="container">
+		<header class="container-top">
+			护工任务索引
+			<!--<div class="mui-pull-right">-->
+				<!--<span class="mui-icon icon-back-black"></span>-->
+				<!--<a onclick="javascript :history.back(-1);"  class="top-title-a">返回</a>-->
+				<!--<span class="mui-icon icon-share"></span>-->
+			<!--</div>-->
+		</header>
+
+		<div class="container-body">
+			<div class="scroll">
+				<div id="slider" class="mui-slider" >
+					<div class="mui-slider-group mui-slider-loop">
+						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="./../statics/img/icon-task-img4.jpg">
+							</a>
+						</div>
+						<!-- 第一张 -->
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="./../statics/img/icon-task-img1.jpg">
+							</a>
+						</div>
+						<!-- 第二张 -->
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="./../statics/img/icon-task-img2.png">
+							</a>
+						</div>
+						<!-- 第三张 -->
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="./../statics/img/icon-task-img3.jpg">
+							</a>
+						</div>
+						<!-- 第四张 -->
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="./../statics/img/icon-task-img4.jpg">
+							</a>
+						</div>
+						<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="./../statics/img/icon-task-img1.jpg">
+							</a>
+						</div>
+					</div>
+					<div class="mui-slider-indicator">
+						<div class="mui-indicator mui-active"></div>
+						<div class="mui-indicator"></div>
+						<div class="mui-indicator"></div>
+						<div class="mui-indicator"></div>
+					</div>
+				</div>
+			</div>
+
+			<!--图片列表-->
+			<ul class="mui-group-ul">
+				<li class="mui-group-li mui-group-li-1" onclick=window.location.href="./introduction.html">
+					<p class="mui-group-li-title">介绍</p>
+					<p class="mui-group-li-content">Introduce</p>
+				</li>
+				<li class="mui-group-li mui-group-li-2" onclick=window.location.href="./taskAdd.html">
+					<p class="mui-group-li-title">需求发布</p>
+					<p class="mui-group-li-content">Release Requirements</p>
+				</li>
+				<!--<li class="mui-group-li mui-group-li-3" onclick=window.location.href="./statify/satisfyInvestigate.html">&lt;!&ndash;window.location.href="./satisfyInvestigate.html&ndash;&gt;-->
+					<!--<p class="mui-group-li-title">满意度</p>-->
+					<!--<p class="mui-group-li-content">Satisfaction survey</p>-->
+				<!--</li>-->
+
+				<div class="contact-info">
+					<a href="tel:4001-888981">
+						<i class="phone-img"></i>
+						<p class="contact-telphone">联系电话</p>
+						<p class="contact-number">4001-888981</p>
+					</a>
+				</div>
+			</ul>
+		</div>
+	</div>
+
+</body>
+
+<script type="text/javascript">
+
+    //自适应
+    (function() {
+        var html = document.documentElement;
+        var width = html.getBoundingClientRect().width;
+        html.style.fontSize = width / 15 + 'px';
+        //至于除数15可自行设置
+        //1rem=50;
+
+        //图片轮播
+        var gallery = mui('.mui-slider');
+        gallery.slider({
+            interval:1000//自动轮播周期，若为0则不自动播放，默认为0；
+        });
+
+        //判断是否为微信浏览器
+        var ua = window.navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+            wxTrue=true;
+            $("header").remove();
+            $(".container-body").css("top","0rem");
+        }else{
+            wxTrue=false;
+            $(".container-top").show();
+        }
+    })()
+
+
+</script>
+
+</html>

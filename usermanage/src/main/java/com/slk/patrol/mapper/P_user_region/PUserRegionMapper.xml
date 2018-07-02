@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slk.patrol.mapper.P_user_region.PUserRegionMapper">
+    <resultMap id="BaseResultMap" type="com.slk.patrol.model.P_user_region.PUserRegion">
+        <id column="id" property="id"/>
+        <result column="custom_id" property="custom_id"/>
+        <result column="region_id" property="region_id"/>
+        <result column="modify_date" property="modify_date"/>
+        <result column="customname" property="customname"/>
+        <result column="regionname" property="regionname"/>
+    </resultMap>
+    <!-- 通过用户id获取区域 -->
+    <select id="selectRegionByCustomerById" resultMap="BaseResultMap">
+        SELECT ur.*,r.`name` as rname FROM p_user_region ur
+            LEFT JOIN p_customer c
+                on ur.Custom_id=c.id
+            LEFT JOIN p_region r
+                on ur.Region_id=r.id
+        where c.id=#{userId}
+    </select>
+    <!-- 查询是否有区域 -->
+    <select id="selectRegionCount" resultType="java.lang.Integer">
+        SELECT count(id) FROM p_user_region WHERE Region_id=#{regionId}
+    </select>
+
+    <!-- 查询管辖区域的id -->
+    <select id="selectRegionIdByUserId" resultType="java.lang.String">
+        SELECT region_id FROM p_user_region WHERE custom_id=#{userId}
+    </select>
+
+    <insert id="addUserRegion">
+        INSERT INTO
+        p_user_region(
+       custom_id,
+       region_id
+        ) VALUES
+        <foreach collection="regionIds" item="item" index="index" separator=",">
+            (#{customerId},#{item})
+        </foreach>
+    </insert>
+
+    <delete id="deleteUserRegionAll">
+        DELETE FROM p_user_region WHERE Custom_id=#{customerId}
+    </delete>
+
+    <delete id="deleteUserRegion">
+        DELETE FROM p_user_region  WHERE Custom_id=#{customerId}
+        and region_id in
+        <foreach collection="regionIds" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateUserRegion">
+        UPDATE p_user_region SET customName=(SELECT name FROM p_customer  c WHERE c.id=Custom_id)
+        ,regionName=(SELECT name FROM p_region r WHERE r.id=Region_id)
+        WHERE Custom_id=#{customerId}
+    </update>
+</mapper>

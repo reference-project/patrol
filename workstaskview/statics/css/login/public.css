@@ -1,0 +1,45 @@
+
+/*表报查询样式*/
+.FindContainer {
+    width: 90%;
+    height: auto;
+}
+.inp-md {
+    width: 10%;
+    height: 30px;
+    text-align: left;
+    padding-left: 18px;
+    border-radius: 4px;
+    font-size: 1em;
+    background-color: #ffffff;
+    box-shadow: none;
+    border: 1px solid #ccc;
+}
+.btn-md {
+    margin-left: 10px;
+    border-radius: 4px;
+}
+
+/*去掉input选中默认颜色*/
+input {
+    outline:none;
+}
+select {
+    outline:none;
+}
+path {
+    display: none;
+}
+.imgs {
+    position: absolute;
+    z-index: 9999;
+    width: 700px;
+    overflow: scroll;
+    display: block;
+}
+.imgs .imgAll {
+    width: 200px;
+    height: 280px;
+    margin-right: 20px;
+    float: left !important;
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slk.workstask.mapper.Wt_work.WtWorkMapper">
+    <resultMap id="BaseResultMap" type="com.slk.workstask.model.Wt_work.WtWork">
+        <id column="id" property="id"/>
+        <result column="phone" property="phone"/>
+        <result column="workname" property="workname"/>
+        <result column="sex" property="sex"/>
+        <result column="idcode" property="idcode"/>
+        <result column="age" property="age"/>
+        <result column="employment" property="employment"/>
+        <result column="speciality" property="speciality"/>
+        <result column="train" property="train"/>
+        <result column="remarks" property="remarks"/>
+        <result column="worknumber" property="worknumber"/>
+        <result column="createdate" property="createdate"/>
+        <result column="createuser" property="createuser"/>
+    </resultMap>
+
+    <select id="selectAllWorks" resultType="com.slk.workstask.model.Wt_work.WtWork">
+        SELECT * from wt_work ORDER BY id
+    </select>
+</mapper>

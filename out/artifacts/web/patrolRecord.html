@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>巡检记录</title>
+	<link rel="stylesheet" type="text/css" href="statics/css/login/reset.css"/>
+	<link rel="stylesheet" type="text/css" href="statics/css/login/patrolRecord.css"/>
+	<script type="text/javascript" src="statics/inc/jquery.2.0.0.min.js"></script>
+	<script src="statics/js/public.js"></script>
+
+</head>
+<body>
+
+
+<div class="patrol" id="imgsDIV">
+	<form id="inspectionForm">
+		<!--标题-->
+		<div class="patrol-top">
+			<i class="top-back-icon"></i>
+			<a  onclick="javascript :history.back(-1);" class="top-back">返回</a>
+		</div>
+
+		<div class="record-title">记录列表</div>
+		<!--记录列表-->
+		<div class="patrol-body">
+			<ul class="record-list" id="records"></ul>
+		</div>
+
+		<!--添加记录-->
+		<div class="bottom-addRecord">
+			<button type="button" onclick="javascript :history.back(-1);" class="addRecord">添加记录</button>
+		</div>
+	</form>
+
+</div>
+
+
+<!--图片放大-->
+<div class="imgEnlarge" onclick="closeimgEnlarge();" style="display: none; position: fixed; top: 0rem; left: 0rem;right: 0rem;bottom: 0rem;z-index: 20;"></div>
+
+<div id="imgs"></div>
+
+<!--成功提示-->
+<div class="successInfo" style="display: none">
+	<img class="success-img" src="statics/img/login/icon-yes.png">
+	<p class="success-submit">提交成功</p>
+	<p class="find-record">查看巡检记录>></p>
+</div>
+
+</body>
+
+
+<script type="text/javascript">
+
+    //屏幕适配
+    (function() {
+        var html = document.documentElement;
+        var width = html.getBoundingClientRect().width;
+        html.style.fontSize = width / 15 + 'px';
+        //至于除数15可自行设置
+        //1rem=50;
+    })();
+
+
+
+	//设置左边下划线分割线
+	$(function () {
+	    var heightLine = ($(".record-list").height())-(10);
+        $(".record-list").append("<i style='position: absolute; top: 0.4rem; left: 1.28rem; z-index: 2; background-color: #808080;width: 0.04rem; height: "+heightLine+"px'></i>")
+
+        var qrcode = uncompileStr(getParameter("q"));
+        var descr = getParameter("descr");
+        if(null==descr)descr = "未提供标题";
+        //获取巡检记录
+        var result = showHtml(url1+"detection/selectInspectionsByQrId/"+qrcode,"");
+        console.log(result);
+        if (result.flag){
+            var data = result.infos;
+            var context ="";
+            for (var i in data){
+                if(null==data[i].url || "" == data[i].url){
+                    data[i].url = "statics/img/zwtp.png";
+                }else{
+
+				}
+                //多图
+               var  html = imgurls(data[i].url);
+                context +=
+                    '<li class="record-list-group">' +
+						'<i class="icon-record '+(i==0?"icon-record-active":"")+'"></i>' +
+						'<h4 class="record-list-title '+(i==0?"title-active":"")+'" >'+result.qrcode.descr+'</h4>' +
+						'<div class="record-list-time">' +
+							'<span class="record-span">'+data[i].modify_date+'</span>' +
+							'<span class="record-span mar-left">'+data[i].customername+'</span>' +
+						'</div>' +
+						'<div>'+html+'</div>' +
+						'<div class="record-list-details">' +
+							'<span class="record-span mar-right">是否异常:</span>' +
+							'<span class="record-span">'+(data[i].normal==0?"是":"否")+'</span>' +
+						'</div>' +
+						'<div class="record-list-details">' +
+							'<span class="record-span mar-right">详细信息:</span>' +
+							'<span class="record-span">'+data[i].descr+'</span>' +
+						'</div>' +
+                    '</li>';
+            }
+
+            $("#records").html(context);
+        }
+
+
+        //标题选中高亮状态
+        $(".record-list-group").click(function () {
+            $(".record-list-group").find(".record-list-title").removeClass("title-active");
+            $(".record-list-group").find("i").removeClass("icon-record-active").addClass("icon-record");
+            $(this).find(".record-list-title").addClass("title-active");
+            $(this).find("i").removeClass("icon-record").addClass("icon-record-active");
+        });
+
+
+	});
+
+    function getParameter(value) {
+        var reg = new RegExp("(^|&)"+value+"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        return r!=null?unescape(r[2]):null;
+    }
+
+    //字符串进行解密
+    function uncompileStr(code) {
+        if(""!=code && null!=code ){
+            code = unescape(code);
+            var c = String.fromCharCode(code.charCodeAt(0) - code.length);
+            for (var i = 1; i < code.length; i++) {
+                c += String.fromCharCode(code.charCodeAt(i) - c.charCodeAt(i - 1));
+            }
+            return c;
+        }else {
+            return code;
+        }
+
+    }
+
+    //多图
+	function imgurls(url) {
+        var imgurl=url.split(",");
+        var html= "";
+        for(var i=0;i<imgurl.length;i++){
+
+            html +='<img class="record-list-img" src="'+imgurl[i]+'" onclick="changeImgsize(\''+imgurl[i]+'\');">';
+        }
+        return html;
+	}
+
+    //点击图片放大
+    function changeImgsize(url) {
+        $(".imgEnlarge").css("display","block");
+        $(".imgEnlarge").append('<img src="'+url+'" style="position: fixed; top: 8rem; left: 3rem; width: 9rem; height: 9rem; ">');
+    }
+    //点击图片还原
+    function closeimgEnlarge() {
+        $(".imgEnlarge").css("display","none");
+        var a = $(".imgEnlarge").children("img").remove();
+    }
+
+
+
+</script>
+</html>

@@ -1,0 +1,167 @@
+
+@font-face {
+	font-family: "workstaskFont";
+	src: url('./../fonts/PingFang Regular.ttf');
+}
+/*设置字体*/
+body,html,p,span,h1,h2,h3,h4,h5,h6,button,input,a,select,textarea{
+	font-family: workstaskFont;
+}
+
+/*公共页面布局------------*/
+.container {
+	width: 15rem;
+	height: 26.68rem;
+	background-color: #e6e6e6;
+}
+/*头部*/
+.container-top {
+	position: fixed;
+	top: 0rem;
+	left: 0rem;
+	z-index: 666;
+	text-align: center;
+	width: 100%;
+	height: 1.78rem;
+	line-height: 1.78rem;
+	padding: 0 0.3rem;
+	font-size: 0.72rem;
+	font-weight: 700;
+	color: #ffffff;
+	background: linear-gradient(to bottom,#e72132,#eb5b1f);
+}
+.icon-back {
+	position: absolute;
+	top: 0.4rem;
+	left: 1rem;
+	background: url(../../statics/img/icon-back.png) no-repeat;
+	width: 0.52rem;
+	height: 0.88rem;
+	background-size: 100% 100%;
+}
+.top-title-a {
+	position: absolute;
+	top: 0rem;
+	left: 1.38rem;
+	font-weight: 400;
+	font-size: 0.6rem;
+	color: #ffffff;
+}
+/*身体*/
+.container-body {
+	position: fixed;
+	top: 1.76rem;
+	left: 0rem;
+	right: 0rem;
+	bottom: 0rem;
+}
+.nursing-top {
+	height: 1.8rem;
+	padding-top: 0.8rem;
+	width: 100%;
+	background: linear-gradient(to bottom,#eb5b1f,#ef7f1b);
+}
+.Grade-group-ul {
+	position: absolute;
+	top: 0.8rem;
+	left: 0rem;
+	right: 0rem;
+	bottom: 0.8rem;
+	z-index: 5;
+	width: 100%;
+	padding: 0rem 0.6rem;
+	overflow-y: auto;
+}
+.Grade-group-li {
+	width: 13.8rem;
+	padding: 0.8rem 0.88rem 0.36rem 0.88rem;
+	border-radius: 0.1rem;
+	margin-bottom: 0.3rem;
+	background-color: #ffffff;
+}
+.Grade-group {
+	position: relative;
+	line-height: 1rem;
+	margin-bottom: 0.2rem;
+	border-bottom: 0.04rem solid #cccccc;
+}
+.Grade-title {
+	font-size: 0.65rem;
+	line-height: 0.7rem;
+	font-weight: 700;
+	color: #333333;
+}
+.Grade-name {
+	position: absolute;
+	top: 0.1rem;
+	left: 2rem;
+	width: 2rem;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	text-align: center;
+	color: #ffffff;
+	font-size: 0.5rem;
+	border-radius: 0.18rem;
+}
+.Grade-name-0 {
+	background-color: #e6212a;
+}
+.Grade-name-1 {
+	background-color: #e61c4c;
+}
+.Grade-name-2 {
+	background-color: #f08519;
+}
+.Grade-name-3 {
+	background-color: #fdd100;
+}
+.Grade-group-Basis {
+	line-height: 1rem;
+	font-size: 0.7rem;
+	color: #333333;
+}
+.Grade-group-detalis {
+	padding: 0rem 0rem 0rem 0.8rem ;
+}
+.Grade-group-p {
+	position: relative;
+	line-height: 1rem;
+	font-size: 0.62rem;
+	font-weight: 700;
+	color: #666666;
+}
+.Grade-group-p:before {
+	position: absolute;
+	top: 0rem;
+	left: -0.8rem;
+	font-size: 0.7rem;
+	color: #666666;
+}
+.Grade-p-1:before {
+	content: "1.";
+}
+.Grade-p-2:before {
+	content: "2.";
+}
+.Grade-p-3:before {
+	content: "3.";
+}
+.Grade-p-4:before {
+	content: "4.";
+}
+
+
+
+
+.find-menu {
+	width: 100%;
+	text-align: center;
+	margin-top: 3.5rem;
+}
+.find-menu-btn {
+	width: 11.4rem;
+	height: 1.96rem;
+}
+
+/**/
+.bottomMenu-top

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>任务列表</title>
+	<link href="./statics/css/base.css" rel="stylesheet"/>
+	<link href="./statics/css/taskList.css" rel="stylesheet"/>
+	<script src="./statics/js/jquery-3.2.1.js"></script>
+	<script src="./statics/js/public.js"></script>
+	<script src="./statics/js/rollSlide.js"></script>
+</head>
+
+
+<body>
+
+	<!--主体容器-->
+	<div class="container">
+		<div class="roll-wrap roll_col" id="h">
+			<!--数据列表-->
+			<ul class="container-ul roll__list" id="listtask" style="position: absolute; left: 0; bottom: 0;">
+				<!--<li class="container-li">-->
+					<!--<div class="taskList-group">-->
+						<!--<i class="taskList-i-1"></i>-->
+						<!--<label class="taskList-label-1">姓&nbsp;&nbsp;&nbsp;名：</label>-->
+						<!--<span class="taskList-span-1" >张粉粉</span>-->
+						<!--<i class="taskList-i-2"></i>-->
+						<!--<label class="taskList-label-2">性&nbsp;&nbsp;&nbsp;别：</label>-->
+						<!--<span class="taskList-span-2" >女</span>-->
+						<!--<i class="taskList-i-3 taskList-i-3"></i>-->
+						<!--<label class="taskList-label-3">发布时间：</label>-->
+						<!--<span class="taskList-span-3">2014-05-03 4:45</span>-->
+					<!--</div>-->
+					<!--<div class="taskList-group">-->
+						<!--<i class="taskList-i-1 taskList-i-4"></i>-->
+						<!--<label class="taskList-label-1">电&nbsp;&nbsp;&nbsp;话：</label>-->
+						<!--<span class="taskList-span-1" >13654663254</span>-->
+						<!--<i class="taskList-i-2 taskList-i-5"></i>-->
+						<!--<label class="taskList-label-2">年&nbsp;&nbsp;&nbsp;龄：</label>-->
+						<!--<span class="taskList-span-2" >33</span>-->
+						<!--<i class="taskList-i-3 taskList-i-6"></i>-->
+						<!--<label class="taskList-label-3">上岗时间：</label>-->
+						<!--<span class="taskList-span-3">2014-05-03 4:45</span>-->
+					<!--</div>-->
+					<!--<div class="taskList-group">-->
+						<!--<i class="taskList-i-1 taskList-i-7"></i>-->
+						<!--<label class="taskList-label-1">护理等级：</label>-->
+						<!--<span class="taskList-span-1 left-4">一级护理</span>-->
+						<!--<i class="taskList-i-2 taskList-i-8"></i>-->
+						<!--<label class="taskList-label-2">位&nbsp;&nbsp;&nbsp;置：</label>-->
+						<!--<span class="taskList-span-2" >4栋3单元一楼502</span>-->
+					<!--</div>-->
+					<!--<div class="taskList-groups">-->
+						<!--<i class="taskList-i-1 taskList-i-9"></i>-->
+						<!--<label class="taskList-label-1">描&nbsp;&nbsp;&nbsp;述：</label>-->
+						<!--<span class="taskList-span">世界你界好世界你你好世界世界你界好世界你你好世界世界你界好世界你你好世界世界你界好世界你你好世界</span>-->
+					<!--</div>-->
+				<!--</li>-->
+
+			</ul>
+		</div>
+	</div>
+
+</body>
+
+
+<script type="text/javascript">
+
+    $(function() {
+        //初始化数据
+        initDatas();
+        loadDatas();
+        $('#h').rollNoInterval().top();
+    });
+
+	function loadDatas(){
+        setTimeout(function(){
+            $("#listtask").empty();
+            initDatas();
+            loadDatas();
+        }, 60000);
+	}
+    function initDatas() {
+        var result=showHtml(url + "release/selectTaskAll","");
+        //console.log(result);
+        if(null!=result){
+            var str = "";
+            var data = result.releaseList;
+            for(var p in data){
+                if(data[p].sex==null)data[p].sex = "";
+                str +=
+					'<li class="container-li">' +
+						'<div class="taskList-group">' +
+							'<i class="taskList-i-1"></i>' +
+							'<label class="taskList-label-1">姓&nbsp;&nbsp;&nbsp;名：</label>' +
+							'<span class="taskList-span-1" >'+(data[p].name==null?"":data[p].name)+'</span>' +
+							'<i class="taskList-i-2"></i>' +
+							'<label class="taskList-label-2">性&nbsp;&nbsp;&nbsp;别：</label>' +
+							'<span class="taskList-span-2">'+(data[p].sex==1?"男":"女")+'</span>' +
+							'<i class="taskList-i-3"></i>' +
+							'<label class="taskList-label-3">发布时间：</label>' +
+							'<span class="taskList-span-3">'+(data[p].createdate==null?"":data[p].createdate)+'</span>' +
+						'</div>' +
+						'<div class="taskList-group">' +
+							'<i class="taskList-i-1 taskList-i-4"></i>' +
+							'<label class="taskList-label-1">电&nbsp;&nbsp;&nbsp;话：</label>' +
+							'<span class="taskList-span-1" >'+(data[p].phone==null?"":data[p].phone)+'</span>' +
+							'<i class="taskList-i-2 taskList-i-5"></i>' +
+							'<label class="taskList-label-2">年&nbsp;&nbsp;&nbsp;龄：</label>' +
+							'<span class="taskList-span-2" >'+(data[p].age==null?"":data[p].age)+'</span>' +
+							'<i class="taskList-i-3 taskList-i-6"></i>' +
+							'<label class="taskList-label-3">上岗时间：</label>' +
+							'<span class="taskList-span-3">'+(data[p].demanddate==null?"":data[p].demanddate)+'</span>' +
+						'</div>' +
+						'<div class="taskList-group">' +
+							'<i class="taskList-i-1 taskList-i-7"></i>' +
+							'<label class="taskList-label-1">护理等级：</label>' +
+							'<span class="taskList-span-1 left-4">'+(data[p].nursinglevel==null?"":data[p].nursinglevel)+'</span>' +
+							'<i class="taskList-i-2 taskList-i-8"></i>' +
+							'<label class="taskList-label-2">位&nbsp;&nbsp;&nbsp;置：</label>' +
+							'<span class="taskList-span-2" >'+(data[p].position==null?"":data[p].position)+'</span>' +
+						'</div>' +
+						'<div class="taskList-groups">' +
+							'<i class="taskList-i-1 taskList-i-9"></i>' +
+							'<label class="taskList-label-1">描&nbsp;&nbsp;&nbsp;述：</label>' +
+							'<span class="taskList-span">'+(data[p].task==null?"":data[p].task)+'</span>' +
+						'</div>'+
+                    '</li>'
+					
+            }
+            $("#listtask").append(str);
+        }
+    }
+
+
+</script>
+
+</html>  

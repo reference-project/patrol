@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>二维码扫描</title>
+
+	<script src="./../statics/js/jquery-3.2.1.js"></script>
+
+	<style>
+
+
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.container {
+			width: 100%;
+			height: 26.68rem;
+			background-color: #eff3f2;
+		}
+		/*头部*/
+		.container-top {
+			position: fixed;
+			top: 0rem;
+			left: 0rem;
+			z-index: 666;
+			text-align: center;
+			width: 100%;
+			height: 1.78rem;
+			line-height: 1.78rem;
+			padding: 0 0.3rem;
+			font-size: 0.72rem;
+			font-weight: 700;
+			color: #333333;
+			background-color: #ffffff;
+		}
+		/*身体*/
+		.container-body {
+			position: fixed;
+			top: 1.76rem;
+			left: 0rem;
+			right: 0rem;
+			bottom: 0rem;
+			overflow-y: auto;
+			background-color: #eff3f2;
+		}
+		.scanning-btn {
+			margin-left: 4.5rem;
+			margin-top: 10rem;
+			width: 6rem;
+			height: 1.8rem;
+			font-size: 0.8rem;
+			color: #ffffff;
+			border-radius: 0.4rem;
+			background-color: #0b8fff;
+			box-shadow: 0.06rem 0.1rem 0.06rem #cccccc;
+			outline: none;
+		}
+
+
+
+
+	</style>
+
+
+</head>
+
+<body>
+
+	<!--主体-->
+	<div class="container">
+		<header class="container-top">二维码扫描</header>
+		<div class="container-body">
+			<button type="button" class="scanning-btn"  id="scanQRCode" onclick="scanCode();">扫码</button>
+		</div>
+	</div>
+
+
+</body>
+
+<!--<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>-->
+
+<!--<script type="text/javascript" src="https://test.com/zepto_touch.js"></script>-->
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<script type="text/javascript">
+
+    //自适应
+    (function() {
+        var html = document.documentElement;
+        var width = html.getBoundingClientRect().width;
+        html.style.fontSize = width / 15 + 'px';
+        //至于除数15可自行设置
+        //1rem=50;
+    })();
+
+
+
+
+    //判断是否为微信浏览器
+	$(function () {
+        var ua = window.navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+            wxTrue=true;
+            $("header").remove();
+            $(".container-body").css("top","0rem");
+        }else{
+            wxTrue=false;
+            $(".container-top").show();
+        }
+	})
+
+
+	//页面触发扫码元素
+    var _appId = "wx0f9279645e904694";//AppSecret:e3f333ee197a530987f2d87815cb520c
+    var _data = {
+        appId : _appId,
+        url : location.href,
+        t : Math.random()
+    };
+    var _getWechatSignUrl = 'http://test.com/getWechatSign.do';
+
+    // 获取微信签名
+    $.ajax({
+        url : _getWechatSignUrl,
+        data : _data,
+        success : function(o) {
+            console.log(o);
+            if (o.returnCode == "00") {
+                wxConfig(o.detail[0].timestamp, o.detail[0].nonceStr, o.detail[0].signature);
+            }
+        }
+    });
+    function wxConfig(_timestamp, _nonceStr, _signature) {
+        //alert('获取数据：'+_timestamp+'\n'+_nonceStr+'\n'+_signature);
+        console.log('获取数据：' + _timestamp + '\n' + _nonceStr + '\n' + _signature);
+        wx.config({
+            debug : true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId : _appId, // 必填，公众号的唯一标识
+            timestamp : _timestamp, // 必填，生成签名的时间戳
+            nonceStr : _nonceStr, // 必填，生成签名的随机串
+            signature : _signature,// 必填，签名，见附录1
+            jsApiList : [ 'onMenuShareTimeline', 'onMenuShareAppMessage',
+                'onMenuShareQQ', 'onMenuShareWeibo', 'scanQRCode' ]
+            // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+    }
+    function scanCode() {
+        wx.scanQRCode({
+            needResult : 1,
+            scanType : [ "qrCode", "barCode" ],
+            success : function(res) {
+                console.log(res);
+                alert(JSON.stringify(res));
+                var result = res.resultStr;
+            },
+            fail : function(res) {
+                console.log(res);
+                alert(JSON.stringify(res));
+
+            }
+        });
+    }
+
+
+</script>
+</html>

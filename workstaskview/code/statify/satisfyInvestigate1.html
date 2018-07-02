@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>满意度调查</title>
+
+
+	<link href="./../../statics/css/base.css" rel="stylesheet"/>
+	<link href="./../../statics/css/mui.min.css" rel="stylesheet"/>
+	<link href="./../../statics/css/satisfyInvestigate.css" rel="stylesheet"/>
+
+	<script src="./../../statics/js/jquery-3.2.1.js"></script>
+	<script src="./../../statics/js/mui.min.js"></script>
+	<script src="./../../statics/js/public.js"></script>
+	<script src="./../../statics/js/check.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+</head>
+<body>
+
+<style>
+
+
+</style>
+	
+	<div class="container">
+		<div class="top-bar"></div>
+		<header class="container-top">
+			<div class="mui-pull-left">
+				<span class="mui-icon icon-back"></span>
+				<a  onclick="javascript :history.back(-1);" class="top-title-a">返回</a>
+			</div>
+			满意度调查
+		</header>
+		<div class="container-body-5">
+			<div class="satisfy-top">
+				<p class="satisfy-top-describle">欢迎您参加满意度调查，感谢您提出的意见和建议，您的支持，我们的动力！</p>
+			</div>
+
+			<!--项目部-->
+			<div class="satisfy-select hospital" hidden>
+				<label class="satisfy-title">您所在的项目部为？</label>
+			</div>
+
+			<!--角色-->
+			<div class="satisfy-select role" >
+				<label class="satisfy-title">您的角色为？</label>
+				<ul class="satisfy-list">
+					<li class="satisfy-group">
+						<div class="mui-input-row mui-radio mui-left">
+							<label class="satisfy-label">患者</label>
+							<input name="role" value="患者" type="radio">
+						</div>
+					</li>
+					<li class="satisfy-group">
+						<div class="mui-input-row mui-radio mui-left">
+							<label class="satisfy-label">患者家属</label>
+							<input name="role" value="患者家属" type="radio">
+						</div>
+					</li>
+					<li class="satisfy-group">
+						<div class="mui-input-row mui-radio mui-left">
+							<label class="satisfy-label">医院工作人员</label>
+							<input name="role" value="医院工作人员"  type="radio">
+						</div>
+					</li>
+					<li class="satisfy-group">
+						<div class="mui-input-row mui-radio mui-left">
+							<label class="satisfy-label">来访人员</label>
+							<input name="role" value="来访人员" type="radio">
+						</div>
+					</li>
+					<li class="satisfy-group roleqt">
+						<div class="mui-input-row mui-radio mui-left">
+							<label class="satisfy-label">其他</label>
+							<input name="role" value="其他" type="radio">
+						</div>
+					</li>
+
+				</ul>
+			</div>
+
+
+
+
+
+			<!--服务人员-->
+			<div class="satisfy-select">
+				<label class="satisfy-title">您发现我们的服务人员存在哪些问题？(可多选)</label>
+				<ul class="satisfy-list">
+					<li class="satisfy-group">
+						<div class="mui-input-row mui-checkbox mui-left">
+							<label class="satisfy-label">无</label>
+							<input name="existing_problems" value="无" type="checkbox" >
+						</div>
+					</li>
+					<li class="satisfy-group">
+						<div class="mui-input-row mui-checkbox mui-left">
+							<label class="satisfy-label">工作期间聊天</label>
+							<input name="existing_problems" value="工作期间聊天" type="checkbox" >
+						</div>
+					</li>
+					<li class="satisfy-group">
+						<div class="mui-input-row mui-checkbox mui-left">
+							<label class="satisfy-label">做与工作无关的事情</label>
+							<input name="existing_problems" value="做与工作无关的事情" type="checkbox">
+						</div>
+					</li>
+					<li class="satisfy-group">
+						<div class="mui-input-row mui-checkbox mui-left">
+							<label class="satisfy-label">服务态度恶劣</label>
+							<input name="existing_problems" value="服务态度恶劣" type="checkbox" >
+						</div>
+					</li>
+					<li class="satisfy-group">
+						<div class="mui-input-row mui-checkbox mui-left">
+							<label class="satisfy-label">对您提出的问题没有及时回复</label>
+							<input name="existing_problems" value="对您提出的问题没有及时回复" type="checkbox" >
+						</div>
+					</li>
+					<li class="satisfy-group">
+						<div class="mui-input-row mui-checkbox mui-left">
+							<label class="satisfy-label">出现问题相互推诿</label>
+							<input name="existing_problems" value="出现问题相互推诿" type="checkbox" >
+						</div>
+					</li>
+					<li class="satisfy-group">
+						<div class="mui-input-row mui-checkbox mui-left">
+							<label class="satisfy-label">对您提出的问题不知道</label>
+							<input name="existing_problems" value="对您提出的问题不知道" type="checkbox" >
+						</div>
+					</li>
+				</ul>
+			</div>
+
+
+			<!--总体评价-->
+			<div class="satisfy-select">
+				<label class="satisfy-title">您对我们的总体服务评价为？</label>
+				<p class="satisfy-evaluate">评价</p>
+
+				<!--星级评价-->
+				<div id="star">
+					<ul>
+						<li><a href="javascript:;">1</a></li>
+						<li><a href="javascript:;">2</a></li>
+						<li><a href="javascript:;">3</a></li>
+						<li><a href="javascript:;">4</a></li>
+						<li><a href="javascript:;">5</a></li>
+					</ul>
+					<span></span>
+					<p></p>
+				</div>
+			</div>
+
+			<!--意见或建议-->
+			<div class="satisfy-select">
+				<p class="satisfy-title-p">您对我们的服务有什么意见或建议？</p>
+				<textarea id="suggestion" class="satisfy-textarea" rows="5"></textarea>
+			</div>
+
+			<!--照片上传-->
+			<div class="satisfy-select">
+				<p class="satisfy-title-p">您对我们的服务不足之处照片上传？</p>
+				<div class="satisfy-flies"  onclick="createUpload();" id="files">
+					<span class="satisfy-flies-name">选择文件</span>
+					<span class="satisfy-flies-size">（10M以内）</span>
+				</div>
+				<input type="file" id="file" style="display: none">
+			</div>
+
+			<!--提交-->
+			<div class="satisfy-select">
+				<button type="button" class="satisfy-btn">提交</button>
+			</div>
+		</div>
+
+		<div class="satisfy-bottom">
+			<span class="satisfy-close">关闭</span>
+		</div>
+	</div>
+	<script type="text/javascript">
+        var wxTrue=false;
+        //自适应
+        (function() {
+            var html = document.documentElement;
+            var width = html.getBoundingClientRect().width;
+            html.style.fontSize = width / 15 + 'px';
+            //至于除数15可自行设置
+            //1rem=50;
+        })()
+
+        $(function(){
+
+
+            var curWwwPath = window.document.location.href;
+            //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+            var pathName = window.document.location.pathname;
+            var pos = curWwwPath.indexOf(pathName);
+            //获取主机地址，如： http://localhost:8083
+            var localhostPaht = curWwwPath.substring(0, pos);
+            //获取带"/"的项目名，如：/uimcardprj
+            var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+            var url = localhostPaht+projectName;
+            if(url.indexOf("/code")==-1){
+                url+="/code";
+            }
+
+            //判断是否为微信浏览器
+            var ua = window.navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+                wxTrue=true;
+                $("header").remove();
+
+            }else{
+                wxTrue=false;
+                $(".container-top").show();
+            }
+        })
+
+var iStar=0;
+		//星级评分
+        window.onload = function (){
+            var oStar = document.getElementById("star");
+            var aLi = oStar.getElementsByTagName("li");
+            var oUl = oStar.getElementsByTagName("ul")[0];
+            var oSpan = oStar.getElementsByTagName("span")[1];
+            var oP = oStar.getElementsByTagName("p")[0];
+            var i = iScore = iStar = 0;
+            var aMsg = [
+                "很不满意|差得太离谱，与卖家描述的严重不符，非常不满",
+                "不满意|部分有破损，与卖家描述的不符，不满意",
+                "一般|质量一般，没有卖家描述的那么好",
+                "满意|质量不错，与卖家描述的基本一致，还是挺满意的",
+                "非常满意|质量非常好，与卖家描述的完全一致，非常满意"
+            ]
+            for (i = 1; i <= aLi.length; i++){
+                aLi[i - 1].index = i;
+                //鼠标移过显示分数
+                aLi[i - 1].onmouseover = function (){
+                    fnPoint(this.index);
+                    //浮动层显示
+                    oP.style.display = "block";
+                    //计算浮动层位置
+                    oP.style.left = oUl.offsetLeft + this.index * this.offsetWidth - 104 + "px";
+                    //匹配浮动层文字内容
+                    oP.innerHTML = "<em><b>" + this.index + "</b> 分 " + aMsg[this.index - 1].match(/(.+)\|/)[1] + "</em>" + aMsg[this.index - 1].match(/\|(.+)/)[1]
+                };
+                //鼠标离开后恢复上次评分
+                aLi[i - 1].onmouseout = function (){
+                    fnPoint();
+                    //关闭浮动层
+                    oP.style.display = "none"
+                };
+                //点击后进行评分处理
+                aLi[i - 1].onclick = function (){
+                    iStar = this.index;
+                    oP.style.display = "none";
+                    //oP.innerHTML = "<em><b>" + this.index + "</b> 分 " + aMsg[this.index - 1].match(/(.+)\|/)[1] + "</em>" + aMsg[this.index - 1].match(/\|(.+)/)[1]
+                }
+            }
+            //评分处理
+            function fnPoint(iArg){
+                //分数赋值
+                iScore = iArg || iStar;
+                for (i = 0; i < aLi.length; i++) aLi[i].className = i < iScore ? "on" : "";
+            }
+        };
+
+
+        //文件上传
+        function createUpload() {
+            $("#file").click();
+            $("#files").empty();
+		}
+		$("#file").change(function () {
+            $("#files").text($("#file").val());
+		})
+		var data=null;
+		$(function(){
+		    var result=showHtml(url + "release/selectContent","");
+			if(result!=null){
+                data= result.contentList;
+			    var html="";
+			    for(var p in data){
+			        if(data[p].id==81){
+                        html+='<li class="satisfy-group">'+
+                        '<div class="mui-input-row mui-radio mui-left">' +
+                        '<label class="satisfy-label">'+data[p].name+'</label>' +
+                        '<input name="hospital" id="hospital_1" value="'+data[p].name+'" type="radio" onclick="childMenu('+JSON.stringify(data[p]).replace(/"/g, '&quot;')+')">' +
+                        '</div>' +
+                        '</li>';
+					}
+				}
+				html+='<li class="satisfy-group">' +
+					'<div class="mui-input-row mui-radio mui-left qt">' +
+					'<label class="satisfy-label">其他</label>' +
+					'<input name="hospital" type="radio" value="其他" onclick="removeMenu()">' +
+					'</div>' +
+					'</li>';
+			}
+			$(".hospital").append(html);
+			$("#hospital_1").click();
+		})
+
+		function removeMenu(){
+            $(".input").remove();
+		   var html='<div class="satisfy-writing input">' +
+               '<input class="satisfy-input" name="hospital"  type="text" id="hospital">' +
+               '</div>';
+		    $('.qt').append(html);
+			$(".info").remove();
+		}
+        function childMenu(resource){
+		    $(".input").remove()
+            $(".info").remove();
+		    var html='<div class="satisfy-select info" >';
+            for(var p in data){
+                if(data[p].parentId==resource.id){
+                    html+='<label class="satisfy-title">'+data[p].name+'</label>';
+                    html+=fastMenu(data[p]);
+                }
+            }
+			html+='</div>'
+			$('.role').after(html);
+		}
+		function fastMenu(resource){
+		    var html='<ul class="satisfy-list">';
+            console.log(resource.name);
+            for(var p in data){
+                if(data[p].parentId==resource.id){
+                  html+= '<li class="satisfy-group">'+
+                    '<div class="mui-input-row mui-radio mui-left">'+
+                    '<label class="satisfy-label">'+data[p].name+'</label>'+
+                    '<input name="score'+data[p].parentId+'" type="radio" value="'+data[p].score+'" data-parentname="'+resource.name+'"  data-name="'+data[p].name+'">'+
+                    '</div>'+
+                    '</li>';
+                }
+            }
+			html+='</ul>';
+			return html;
+		}
+
+		//角色单选框
+        $('input[name="role"]').change(function(){
+            var v = $(this).val();
+            $(".roleinput").remove();
+            if(v=='其他'){
+                var html='<div class="satisfy-writing roleinput">' +
+                    '<input class="satisfy-input" type="text" id="role">' +
+                    '</div>';
+                $(".roleqt").after(html);
+			}
+			/*else if(v=='医院工作人员'){
+
+			}*/
+        });
+		//提交
+		$(".satisfy-btn").click(function(){
+            var arrList = new Array();
+            var hospital=$("input[name='hospital']:checked").val();
+            if(hospital=='其他'){
+                hospital=$("#hospital").val();
+            }
+
+            var role=$("input[name='role']:checked").val();
+            if(role=='其他'){
+                role=$("#role").val();
+			}
+
+
+			//评分
+            var sorceData=new Array();
+            $('input:radio').each(function(){
+				var nameValue=$(this).attr("name");
+                if(nameValue.indexOf("score")>-1){
+                    sorceData.push(nameValue);
+				}
+			})
+            sorceData=unique(sorceData);
+            for(var p in sorceData){
+                var scoreObject=new Object();
+                scoreObject.score=$("input[name='"+sorceData[p]+"']:checked").val();
+                scoreObject.parentName=$("input[name='"+sorceData[p]+"']").data("parentname");
+                scoreObject.name=$("input[name='"+sorceData[p]+"']").data("name");
+                arrList.push(scoreObject);
+			}
+
+
+
+
+
+			var existing_problems="";
+            $("input[name='existing_problems']:checked").each(function(){
+                existing_problems+= $(this).val()+",";
+            });
+			var suggestion=$("#suggestion").val();
+            var file = document.getElementById("file").files[0];
+            var formData = new FormData();
+            if (file!=null) {
+                formData.append("file", file);
+            }
+           if(hospital==null||hospital==''){
+               return;
+		   }
+		   if(role==null||role==''){
+               return;
+		   }
+            formData.append("hospital",hospital);
+            formData.append("role",role);
+            formData.append("iScore",iScore);
+            formData.append("arrList",JSON.stringify(arrList));
+            formData.append("suggestion",suggestion);
+            formData.append("existingproblems",existing_problems);
+            var result=showHtml(url +"phone/Content/submitContent",formData);
+            if(result!=null&&result.flag){
+				 window.location.href="";
+			}else{
+                checkMessage("提交失败");
+			}
+		})
+		//去除重复
+        function unique(arr) {
+            var result = [], hash = {};
+            for (var i = 0, elem; (elem = arr[i]) != null; i++) {
+                if (!hash[elem]) {
+                    result.push(elem);
+                    hash[elem] = true;
+                }
+            }
+            return result;
+		}
+	</script>
+</body>
+
+
+</html>

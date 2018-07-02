@@ -1,0 +1,267 @@
+<!doctype html>
+	<!--suppress ALL -->
+<head>
+		<title>调查内容管理</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="import" href="../../statics/include-header.html">
+		<link rel="import" href="../../statics/include-JS.html">
+	</head>
+	<body>
+	<abbr>
+
+
+		<link rel="stylesheet" href="./statics/css/treeMenu.css" />
+
+
+		<div class="row animated fadeInRight" id="body1">
+			<div class="col-sm-12">
+				<div class="panel">
+					<div class="panel-content">
+						<div class="table-responsive">
+							<div class="menu-box">
+								<div class="menu-add">
+									<i class="ring-icon-1"></i>
+									<span class="menu-describle-add">满意度调查</span>
+									<button type="button" class="menu-btn-add" onclick="AddMenu();"  data-toggle="modal" data-target="#add-modal">新增</button>
+								</div>
+
+								<nav class="content-nav">
+
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--新增-->
+		<div class="modal fade " id="add-modal" tabindex="-1" role="dialog" aria-labelledby="modal-default-label">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header state modal-primary">
+						<h4 class="modal-title" id="modal-default-label">调查内容管理</h4>
+					</div>
+					<div class="modal-body">
+						<div class="col-md-12">
+							<div class="panel">
+								<div class="panel-content">
+									<div class="row">
+										<div class="col-sm-12">
+											<form id="addForm" class="form-horizontal form-stripe">
+												<h6 class="mb-xlg text-center"><b>调查内容管理</b></h6>
+												<div class="form-group">
+													<label  class="col-sm-2 control-label">名称</label>
+													<div class="col-sm-10">
+														<input type="text" id="name" class="form-control" data-id="notnull"  name="name">
+													</div>
+												</div>
+												<div class="form-group">
+													<label  class="col-sm-2 control-label">排序</label>
+													<div class="col-sm-10">
+														<input type="text" id="sort"  class="form-control" name="sort" onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="2">
+													</div>
+												</div>
+												<div class="form-group score">
+													<label  class="col-sm-2 control-label">分数</label>
+													<div class="col-sm-10">
+														<input type="text" id="score" class="form-control" name="score" onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="1">
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div class="reminder-info"></div>
+						<button onclick="AddContentSubmit()" type="button" class="btn btn-primary">确定</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--删除-->
+		<div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="modal-error-label">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header state modal-danger">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="modal-error-label"><i class="fa fa-warning"></i>删除调查内容</h4>
+					</div>
+					<div class="modal-body">
+						请您确定要删除此数据吗？
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="delContentSubmit()">确定</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<script type="text/javascript">
+
+			//数据初始化
+			$(function(){
+               initDate();
+			})
+
+			//点击显示下级菜单
+            function showChild(element){
+			    var ulsib=$(element).next("ul");
+                var ulli=$(element).siblings("li").next("ul");
+
+			    if($(ulsib).is(":hidden")){
+                    $(ulsib).show();
+                    $(ulli).hide();
+                    $(element).next("ul").children("ul").hide();
+				}else{
+                    $(ulsib).hide();
+				}
+
+			}
+			//父级数据
+			function initDate(){
+                var result=showHtml(url+"content/selectContent","");
+                if(result.flag){
+                    var data=result.contentList;
+                    //console.log(data);
+                    var html=' <ul class="menu-ul-1">';
+                    for(var p in data){
+                        if(data[p].parentId==1){
+                            html+='<li class="menu-li-'+data[p].level+'"  onclick="showChild(this)">' +
+                                '<i class="ring-icon-1"></i>'+
+                                '<span class="menu-describle">'+data[p].name+'</span>' +
+                                '<button type="button" class="menu-btn menu-btn-right" onclick="delContent('+JSON.stringify(data[p]).replace(/"/g, '&quot;')+')" data-toggle="modal" data-target="#error-modal">删除</button>' +
+                                '<button type="button" class="menu-btn" onclick="updateContent('+JSON.stringify(data[p]).replace(/"/g, '&quot;')+')" data-toggle="modal" data-target="#add-modal">修改</button>' +
+                                '<button type="button" class="menu-btn" onclick="addContent('+JSON.stringify(data[p]).replace(/"/g, '&quot;')+')" data-toggle="modal" data-target="#add-modal">新增</button>'+
+                                '<i class="arrow-right"></i>'+
+                                '</li>';
+                            html+=siftedDate(data,data[p]);
+						}
+					}
+                    html+='</ul>';
+					$(".content-nav").append(html);
+                }
+			}
+
+			//子级数据
+			function siftedDate(data,element){
+			    var flag=false;
+                if($.inArray(element, data)){
+                    flag=true;
+                    //console.log(data);
+				}
+				if(flag){
+                    var html='<ul class="" hidden>';
+                    for(var p in data){
+                        if(data[p].parentId==element.id){
+                            html+='<li class="menu-li-'+data[p].level+'" onclick="showChild(this)">' +
+                                '<i class="ring-icon-1" id=""></i>'+
+                                '<span class="menu-describle">'+data[p].name+'</span>' +
+                                '<button type="button" class="menu-btn menu-btn-right"  onclick="delContent('+JSON.stringify(data[p]).replace(/"/g, '&quot;')+')" data-toggle="modal" data-target="#error-modal">删除</button>'+
+                                '<button type="button" class="menu-btn" onclick="updateContent('+JSON.stringify(data[p]).replace(/"/g, '&quot;')+')" data-toggle="modal" data-target="#add-modal">修改</button>';
+                            if(data[p].level!=3){
+                                html+='<button type="button" class="menu-btn"  onclick="addContent('+JSON.stringify(data[p]).replace(/"/g, '&quot;')+')" data-toggle="modal" data-target="#add-modal">新增</button>';
+                            }
+                            html+='<i class="arrow-right"></i>'+
+                                '</li>';
+                            html+=siftedDate(data,data[p]);
+                        }
+                    }
+                    html+='</ul>';
+					return html;
+				}else{
+				    return '';
+				}
+
+			}
+
+			var dataSubmit;
+			var open;
+			function AddMenu(){
+                $(".score").hide();
+			    $("#addForm").clearfrom();
+                dataSubmit=null;
+                open=0;
+			}
+			//新增
+			function addContent(resource){
+			    open=1;
+                $("#addForm").clearfrom();
+                $(".score").hide();
+                if(resource.level==2){
+                    $(".score").show();
+				}
+                dataSubmit=resource;
+			}
+			//新增提交
+			function AddContentSubmit() {
+                var formData = new FormData();
+                if(open==0){
+                    formData.append("parentId",1);
+                    formData.append("sort",$("#sort").val());
+                    formData.append("level",1);
+                    formData.append("name",$("#name").val());
+				}
+				else if(open==1){
+                    formData.append("parentId",dataSubmit.id);
+                    formData.append("sort",$("#sort").val());
+                    formData.append("level",dataSubmit.level+1);
+                    formData.append("name",$("#name").val());
+                    formData.append("score",$("#score").val());
+				}else if(open==2){
+                    formData.append("id",dataSubmit.id);
+                    //formData.append("parentId",dataSubmit.parentId);
+                    formData.append("sort",$("#sort").val());
+                    //formData.append("level",dataSubmit.level);
+                    formData.append("name",$("#name").val());
+                    formData.append("score",$("#score").val());
+				}
+                showHtml(url+"content/insertUpdateContent",formData);
+                showHtmlRight('./code/content/contentList.html');
+			}
+
+			//修改
+            function updateContent(resource){
+                $("#addForm").clearfrom();
+                dataSubmit=resource;
+                open=2;
+                $(".score").hide();
+                $("#name").val(resource.name);
+                $("#score").val(resource.score);
+                $("#sort").val(resource.sort);
+                if(resource.level==3){
+                    $(".score").show();
+                }
+            }
+            //修改提交
+            function updateContentSubmit(){
+
+
+                /*showHtml(url+"content/insertUpdateContent",formData);
+                showHtmlRight('./code/content/contentList.html');*/
+            }
+
+
+            //删除
+            function delContent(resource){
+                dataSubmit=resource;
+            }
+
+            //删除提交
+            function delContentSubmit() {
+                showHtml(url+"content/deleteContent/"+dataSubmit.id,"");
+                showHtmlRight('./code/content/contentList.html');
+			}
+
+		</script>
+	</abbr>
+	</body>
+</html>

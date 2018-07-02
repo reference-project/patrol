@@ -1,0 +1,77 @@
+
+/*表报查询样式*/
+.FindContainer {
+    height: 60px;
+    width: 350px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.FindContainer-ul {
+    width: 800px;
+    height: 45px;
+    margin: 0;
+    padding: 0;
+    -webkit-overflow-scrolling:touch;
+}
+.FindContainer-li {
+    margin: 0;
+    padding: 0;
+    float: left;
+    height: 40px;
+    list-style: none;
+}
+.inp-md {
+    width: 140px;
+    height: 30px;
+    text-align: left;
+    padding-left: 18px;
+    border-radius: 4px;
+    font-size: 12px;
+    background-color: #ffffff;
+    box-shadow: none;
+    border: 1px solid #ccc;
+}
+.btn-md {
+    margin-left: 10px;
+    border-radius: 4px;
+}
+@media (min-width: 500px) {
+    .FindContainer {
+        width: 800px;
+    }
+    .inp-md {
+        font-size: 14px;
+    }
+}
+@media (min-width: 1000px) {
+    .FindContainer {
+        width: 800px;
+    }
+    .inp-md {
+        font-size: 14px;
+    }
+}
+
+/*去掉input选中默认颜色*/
+input {
+    outline:none;
+}
+select {
+    outline:none;
+}
+path {
+    display: none;
+}
+.imgs {
+    position: absolute;
+    z-index: 9999;
+    width: 700px;
+    overflow: scroll;
+    display: block;
+}
+.imgs .imgAll {
+    width: 200px;
+    height: 280px;
+    margin-right: 20px;
+    float: left !important;
+}
